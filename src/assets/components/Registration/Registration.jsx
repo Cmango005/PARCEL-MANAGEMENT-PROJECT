@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { updateProfile } from "firebase/auth";
 
 import "./Registration.css"
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "../Navbar/Navbar";
 const Registration = () => {
@@ -15,6 +15,25 @@ const Registration = () => {
     const onSubmit = data => {
         createUser(data.email, data.password, data.name, data.photoURL)
             .then(result => {
+                const userInfo = {
+                    photoURL: data?.photoURL,
+                    name: data?.name,
+                    email: data?.email
+                }
+                
+                fetch('http://localhost:5000/users',{
+                    method: 'POST',
+                    headers: {
+                      'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userInfo)
+                  })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.insertedId){
+                        toast('user added successfully')
+                    }
+                })
                 reset();
                 updateProfile(result.user, {
                     displayName: data.name,

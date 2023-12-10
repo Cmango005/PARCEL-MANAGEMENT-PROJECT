@@ -39,9 +39,28 @@ const Login = () => {
 
             .then(Result => {
                 
-
                 console.log(Result);
 
+                const userInfo = {
+                    photoURL: Result.user.photoURL,
+                    name: Result.user.displayName,
+                    email: Result.user.email
+                }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+
+                        if (data.insertedId) {
+                            toast('sign in with google successful')
+                        }
+
+                    })
 
 
                 navigate(location?.state ? location.state : "/")
