@@ -7,3 +7,66 @@ nav a.active {
 .back {
     background: linear-gradient(270deg, #fa6fdc, #6e6bd8);
 }
+.advanced-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #ea5c39, #feb47b, #f98b6f, #f5b583);
+    background-size: 300% 300%;
+    animation: gradientAnimation 4s linear infinite;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .advanced-button:hover {
+    border: 2px solid #fff;
+    color: #fff;
+  }
+  
+  .advanced-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 300%;
+    padding-top: 300%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.6s;
+  }
+  
+  .advanced-button:hover::before {
+    transform: translate(-50%, -50%) scale(3);
+  }
+  .unique-button {
+    width: 240px;
+    text-transform: uppercase;
+    background: linear-gradient(#FF6B6B, #6B66FF);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .unique-button:hover {
+    transform: translateY(-2px);
+    
+  }
+  
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
