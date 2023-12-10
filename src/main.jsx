@@ -15,6 +15,11 @@ import {
 } from '@tanstack/react-query'
 import Login from './assets/components/Login/Login';
 import Registration from './assets/components/Registration/Registration';
+import Dashboard from './assets/components/Dashboard/Dashboard';
+import Menu from './assets/components/Page/Menu';
+import Book from './assets/components/Page/Book';
+import MyItems from './assets/components/Page/MyItems';
+import Profile from './assets/components/Page/Profile';
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -37,6 +42,30 @@ const router = createBrowserRouter([
 
     ]
   },
+  {
+    path: '/dashboard',
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: '/dashboard/menu',
+        element: <Menu></Menu>
+      },
+      {
+        path: '/dashboard/book',
+        element: <Book></Book>
+      },
+      {
+        path: '/dashboard/my-book',
+        element: <MyItems></MyItems>,
+        
+      },
+      {
+        path: '/dashboard/profile',
+        element: <Profile></Profile>
+      },
+      
+    ]
+  }
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
