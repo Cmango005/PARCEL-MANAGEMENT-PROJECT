@@ -1,0 +1,9 @@
+nav a.active {
+    text-decoration: underline;
+    color: rgb(255, 255, 255);
+
+}
+
+.back {
+    background: linear-gradient(270deg, #fa6fdc, #6e6bd8);
+}
