@@ -26,6 +26,7 @@ import AllDeliveryMen from './assets/components/Page/AllDeliveryMen';
 import MyDeliverItems from './assets/components/Page/MyDeliverItems';
 import MyReview from './assets/components/Page/MyReview';
 import Statistics from './assets/components/Page/Statistics';
+import Update from './assets/components/Page/Update';
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -94,7 +95,11 @@ const router = createBrowserRouter([
         path: '/dashboard/statistics',
         element: <Statistics></Statistics>
       },
-      
+      {
+        path:'/dashboard/update/:id',
+        element:<Update></Update>,
+        loader:({params})=> fetch(`http://localhost:5000/order/${params.id}`)
+      }
     ]
   }
 ]);
