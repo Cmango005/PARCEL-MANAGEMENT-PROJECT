@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { MdLocalGroceryStore, MdOutlineBorderColor, MdOutlineBookmark } from "react-icons/md";
-import { FaHome } from "react-icons/fa";
+import { FaHome , FaUsers } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import Marquee from "react-fast-marquee";
 import { useContext } from "react";
@@ -36,7 +36,13 @@ const Dashboard = () => {
                                         <li className="flex hover:bg-gray-700 hover:rounded-lg">
 
                                             <NavLink to='/dashboard/profile'><CgProfile />My Profile</NavLink>
-                                        </li> </> : <></>
+                                        </li> 
+                                        <li className="flex hover:bg-gray-700 hover:rounded-lg">
+
+                                    <NavLink to='/dashboard/all-user'><FaUsers />All User</NavLink>
+                                </li>
+                                </> : <></>
+                                        
                     }
 
 

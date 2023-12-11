@@ -20,6 +20,7 @@ import Menu from './assets/components/Page/Menu';
 import Book from './assets/components/Page/Book';
 import MyItems from './assets/components/Page/MyItems';
 import Profile from './assets/components/Page/Profile';
+import AllUser from './assets/components/Page/AllUser';
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/profile',
         element: <Profile></Profile>
+      },
+      {
+        path: '/dashboard/all-user',
+        element: <AllUser></AllUser>
       },
       
     ]
