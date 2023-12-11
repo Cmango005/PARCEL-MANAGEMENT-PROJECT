@@ -70,7 +70,8 @@ const AllUser = () => {
                                 <th>{index + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                               
+                               <td></td>
+                               <td></td>
                                 <td><div className="dropdown dropdown-right">
                                     <div tabIndex={0} role="button" className="btn m-1">Role</div>
                                     <ul className="dropdown-content z-[1] menu p-2 shadow-2xl bg-base-100 rounded-box w-52">
