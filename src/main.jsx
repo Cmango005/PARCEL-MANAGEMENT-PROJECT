@@ -21,6 +21,11 @@ import Book from './assets/components/Page/Book';
 import MyItems from './assets/components/Page/MyItems';
 import Profile from './assets/components/Page/Profile';
 import AllUser from './assets/components/Page/AllUser';
+import AllParcel from './assets/components/Page/AllParcel';
+import AllDeliveryMen from './assets/components/Page/AllDeliveryMen';
+import MyDeliverItems from './assets/components/Page/MyDeliverItems';
+import MyReview from './assets/components/Page/MyReview';
+import Statistics from './assets/components/Page/Statistics';
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -65,8 +70,29 @@ const router = createBrowserRouter([
         element: <Profile></Profile>
       },
       {
+        path: '/dashboard/parcels',
+        element: <AllParcel></AllParcel>
+      },
+      {
         path: '/dashboard/all-user',
         element: <AllUser></AllUser>
+      },
+      {
+        path: '/dashboard/delivery-men',
+        element: <AllDeliveryMen></AllDeliveryMen>
+      },
+      {
+        path: '/dashboard/my-delivery',
+        element: <MyDeliverItems></MyDeliverItems>,
+        
+      },
+      {
+        path: '/dashboard/my-review',
+        element: <MyReview></MyReview>
+      },
+      {
+        path: '/dashboard/statistics',
+        element: <Statistics></Statistics>
       },
       
     ]
