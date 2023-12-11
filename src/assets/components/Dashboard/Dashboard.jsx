@@ -1,12 +1,18 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { MdLocalGroceryStore, MdOutlineBorderColor, MdOutlineBookmark } from "react-icons/md";
-import { FaHome , FaUsers } from "react-icons/fa";
+import { MdLocalGroceryStore, MdOutlineBorderColor, MdOutlineReviews, MdOutlineBookmark } from "react-icons/md";
+import { GoListOrdered } from "react-icons/go";
+import { FaHome, FaUsers } from "react-icons/fa";
+import { FcStatistics } from "react-icons/fc";
+import { IoManSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import Marquee from "react-fast-marquee";
+import useDeliveryMan from "../Hooks/useDeliveryMan";
+import useAdmin from "../Hooks/useAdmin";
 import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 const Dashboard = () => {
-    
+    const [isAdmin] = useAdmin();
+    const [isDeliveryMen] = useDeliveryMan();
     const { user } = useContext(AuthContext);
     
     return (
@@ -25,7 +31,35 @@ const Dashboard = () => {
                     </li>
 
                     {
-                        user ? <> <li className="flex hover:bg-gray-700 hover:rounded-lg">
+                        user ? <>{
+                            isAdmin ? <><li className="flex hover:bg-gray-700 hover:rounded-lg">
+
+                                <NavLink to='/dashboard/parcels'><GoListOrdered />All Parcels</NavLink>
+                            </li>
+                                <li className="flex hover:bg-gray-700 hover:rounded-lg">
+
+                                    <NavLink to='/dashboard/all-user'><FaUsers />All User</NavLink>
+                                </li>
+                                <li className="flex hover:bg-gray-700 hover:rounded-lg">
+
+                                    <NavLink to='/dashboard/delivery-men'><IoManSharp />All Delivery Men</NavLink>
+                                </li>
+                                <li className="flex hover:bg-gray-700 hover:rounded-lg">
+
+                                    <NavLink to='/dashboard/statistics'><FcStatistics />Statistics</NavLink>
+                                </li></> :
+                                isDeliveryMen ? <><li className="flex hover:bg-gray-700 hover:rounded-lg">
+
+                                    <NavLink to='/dashboard/my-delivery'><MdOutlineBorderColor />My Delivery List</NavLink>
+                                </li>
+                                    <li className="flex hover:bg-gray-700 hover:rounded-lg">
+
+                                        <NavLink to='/dashboard/my-review'><MdOutlineReviews />My Reviews</NavLink>
+                                    </li>
+
+                                </>
+                                    : <>
+                                        <li className="flex hover:bg-gray-700 hover:rounded-lg">
 
                                             <NavLink to='/dashboard/book'><MdOutlineBorderColor />Book a Parcel</NavLink>
                                         </li>
@@ -36,13 +70,9 @@ const Dashboard = () => {
                                         <li className="flex hover:bg-gray-700 hover:rounded-lg">
 
                                             <NavLink to='/dashboard/profile'><CgProfile />My Profile</NavLink>
-                                        </li> 
-                                        <li className="flex hover:bg-gray-700 hover:rounded-lg">
-
-                                    <NavLink to='/dashboard/all-user'><FaUsers />All User</NavLink>
-                                </li>
-                                </> : <></>
-                                        
+                                        </li>
+                                    </>
+                        } </> : <></>
                     }
 
 

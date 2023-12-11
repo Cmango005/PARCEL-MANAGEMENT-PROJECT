@@ -28,6 +28,23 @@ const AllUser = () => {
                 }
             })
     }
+    const handleMakeDeliveryMan = user => {
+        
+        fetch(`http://localhost:5000/users/delivery-man/${user._id}`, {
+        method: 'PATCH',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify()
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.modifiedCount > 0) {
+
+                toast(`${user.name} is Delivery Man now`)
+            }
+        })
+}
     
     
     
@@ -59,12 +76,16 @@ const AllUser = () => {
                                     <ul className="dropdown-content z-[1] menu p-2 shadow-2xl bg-base-100 rounded-box w-52">
                                         {user.role === 'Admin' ? (
                                             <p>Admin</p>
-                                        )  : (
+                                        ) : user.role === 'Delivery-Man' ? (
+                                            <p>Delivery-Man</p>
+                                        ) : (
                                             <>
                                                 <button onClick={() => handleMakeAdmin(user)}>
                                                     <li><a>Make Admin</a></li>
                                                 </button>
-                                               
+                                                <button onClick={() => handleMakeDeliveryMan(user)}>
+                                                    <li><a>Make Delivery Man</a></li>
+                                                </button>
                                                 
                                             </>
                                         )}
