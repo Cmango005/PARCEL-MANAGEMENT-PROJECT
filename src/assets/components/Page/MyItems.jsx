@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { AuthContext } from "../../../Providers/AuthProvider";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
-import { useForm } from "react-hook-form";
+
 import { MdOutlineBookmark } from "react-icons/md";
 
 
@@ -36,33 +36,44 @@ const MyItems = () => {
             .then(res => res.json())
             .then(data => setMyOrder(data))
     }, [user?.email])
-    const { register, handleSubmit } = useForm();
 
-
-    const onSubmit = async (data) => {
-        console.log("Submit button clicked");
-        console.log(data);
-        const submitReview = {
-            userName: data.userName,
-            review: data.review, // Change this to match the name in the form
-        };
-    
-        fetch('http://localhost:5000/review', {
-            method: 'POST',
+    const [selectedParcel, setSelectedParcel] = useState('');
+    const [review, setReview] = useState('');
+    const handleParcelReview = (parcel) => {
+        setSelectedParcel(parcel);
+    };
+    const [allOrder, setAllOrder] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000/order')
+            .then(res => res.json())
+            .then(data => setAllOrder(data))
+    }, [allOrder])
+    const [isReviewDone, setIsReviewDone] = useState(false);
+    const handleSubmit = async (id, review, deliveryMan, deliveryDate) => {
+        setIsReviewDone(true);
+        console.log(handleSubmit)
+        fetch(`http://localhost:5000/order/${id}`, {
+            method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(submitReview)
+            body: JSON.stringify({ status: "delivered", review, deliveryMan, deliveryDate })
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                if (data.insertedId) {
-                    toast("Review Submitted Successfully");
+                if (data.modifiedCount > 0) {
+                    const remaining = allOrder.filter(order => order._id !== id);
+                    const updated = allOrder.find(order => order._id === id);
+                    updated.status = 'delivered';
+                    updated.deliveryMan = deliveryMan;
+                    updated.deliveryDate = deliveryDate;
+                    updated.review = review;
+                    const newOrder = [updated, ...remaining];
+                    setAllOrder(newOrder);
+                    toast('Thanks for your valuable review');
                 }
-            })
+            });
     };
-    
 
 
 
@@ -130,49 +141,58 @@ const MyItems = () => {
                                     parcel.status === "on the way" ? <><img className="h-14 w-14 p-1" src="https://i.ibb.co/F30KhLp/moving-car.gif" alt="" /></> : <>
                                         {
                                             parcel.status === "delivered" ? <><div>
-                                                <>
-                                                    <button className="btn btn-sm btn-neutral" onClick={() => document.getElementById('my_modal_2').showModal()}>Review<FaStar className="" /></button>
-                                                    <dialog id="my_modal_2" className="modal">
-                                                        <div className="modal-box">
-                                                            <form onSubmit={handleSubmit(onSubmit)}>
-                                                                <div className="form-control w-full my-6">
-                                                                    <label className="label">
-                                                                        <span className="label-text">Name</span>
-                                                                    </label>
-                                                                    <input
-                                                                        type="text"
-                                                                        placeholder="Name"
-                                                                        readOnly
-                                                                        value={user?.displayName}
-                                                                        {...register("userName", { required: true })}
-                                                                        className="input input-bordered w-full"
-                                                                    />
+                                                {
+                                                    parcel.review ? <><button disabled className="px-3 py-2 rounded border-2 border-gray-950" >Thanks For Your Review </button></> : <>
+                                                        <label htmlFor="my_modal_7" onClick={() => handleParcelReview(parcel)} className="btn btn-sm btn-neutral">Review<FaStar className="" /></label>
 
-                                                                </div>
-                                                                <div className="form-control w-full my-6">
-                                                                    <label className="label">
-                                                                        <span className="label-text">Review</span>
-                                                                    </label>
-                                                                    <textarea
-                                                                        placeholder="Review"
-                                                                        {...register("review")}
-                                                                        className="textarea textarea-bordered w-full"
-                                                                    ></textarea>
-                                                                </div>
+                                                        <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+                                                        <div className="modal" role="dialog">
+                                                            <div className="modal-box">
+                                                                <h2 className="text-2xl font-bold mb-4">Manage Parcel</h2>
 
-                                                                {/* Book Button */}
-                                                                <button type="submit" className="btn">
-                                                                    Submit Review <MdOutlineBookmark className="ml-4" />
+
+                                                                <label className="label">
+                                                                    <span className="label-text">Name</span>
+                                                                </label>
+                                                                <input
+                                                                    type="text"
+                                                                    placeholder="Name"
+                                                                    readOnly
+                                                                    value={user?.displayName}
+
+                                                                    className="input input-bordered w-full"
+                                                                />
+                                                                <label className="label">
+                                                                    <span className="label-text">Delivery Man</span>
+                                                                </label>
+                                                                <input
+                                                                    type="text"
+                                                                    readOnly
+                                                                    value={selectedParcel.deliveryMan}
+                                                                    className="input input-bordered w-full"
+                                                                />
+                                                                <label className='text-black'>Review</label>
+                                                                <textarea
+                                                                    type="text"
+                                                                    onChange={(e) => setReview(e.target.value)}
+                                                                    value={review}
+                                                                    className="textarea textarea-bordered h-24 w-full"
+                                                                ></textarea>
+
+
+                                                                {/* Submit Button */}
+                                                                <button onClick={() => handleSubmit(selectedParcel._id, review, selectedParcel.deliveryMan, selectedParcel.deliveryDate)} className={`btn btn-info ${isReviewDone ? 'cursor-not-allowed opacity-50' : ''}`}>
+                                                                    Submit Review
+                                                                    <MdOutlineBookmark className="ml-4" />
                                                                 </button>
-                                                                <ToastContainer></ToastContainer>
-                                                            </form>
-                                                            
+                                                            </div>
+
+
+                                                            <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
                                                         </div>
-                                                        <form method="dialog" className="modal-backdrop">
-                                                            <button>close</button>
-                                                        </form>
-                                                    </dialog>
-                                                </>
+
+                                                    </>
+                                                }
                                             </div>
                                                 {renderPayButton(parcel.status)}</> :
                                                 parcel.status === "pending" ?
