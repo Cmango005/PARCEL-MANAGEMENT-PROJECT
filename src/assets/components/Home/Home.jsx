@@ -4,7 +4,26 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { FaSearch } from "react-icons/fa";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import { useEffect, useState } from "react";
+import CountUp from "react-countup/build/CountUp";
 const Home = () => { 
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        fetch('https://parcel-server.vercel.app/users')
+            .then(res => res.json())
+            .then(data => setUsers(data))
+    }, [users]);
+    //console.log(users)
+    const [allOrder, setAllOrder] = useState([]);
+    useEffect(() => {
+        fetch('https://parcel-server.vercel.app/order')
+            .then(res => res.json())
+            .then(data => setAllOrder(data))
+    }, [allOrder])
+    const delivered = allOrder.filter(delivery => delivery.status === 'delivered')
+
+    const deliveryMan = users.filter(user => user?.role === "Delivery-Man");
+    //console.log(deliveryMan.photoURL)
     return (
         <div style={{background: "linear-gradient(270deg, #1ee3bf, #6e6bd8)"}}>
             <section className="relative h-96 bg-cover bg-center" style={{ backgroundImage: "url('https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg')" }}>
@@ -65,13 +84,48 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                   
+                    <div className="flex flex-col md:flex-row lg:flex-row lg:w-3/5 bg-white shadow-md border-2">
+
+                        <div className="stat place-items-center">
+                            <div className="stat-title"> Parcel Booked</div>
+                            <div className="stat-value text-green-400"><CountUp end={allOrder.length} /></div>
+                            <div className="stat-desc">From January 1st to February 1st</div>
+                        </div>
+                        <div className="stat place-items-center">
+                            <div className="stat-title">Parcel Delivered</div>
+                            <div className="stat-value text-yellow-400"><CountUp end={delivered.length} /></div>
+                            <div className="stat-desc">↗︎ 90 (14%)</div>
+                        </div>
+
+                        <div className="stat place-items-center">
+                            <div className="stat-title">Users</div>
+                            <div className="stat-value text-red-400"><CountUp end={users.length} /></div>
+                            <div className="stat-desc text-secondary">↗︎ 40 (2%)</div>
+                        </div>
+
+
+                    </div>
                 </div>
             </section>
             <section className="mt-20">
                 <div className="container mx-auto mt-8">
                     <h2 className="text-4xl font-bold mb-4 wel text-white">Top 5 Delivery Men</h2>
-                   
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                        {deliveryMan.map((deliveryMan, index) => (
+                            <div key={index} className="bg-white p-6 rounded-md shadow-md">
+                                <img
+                                    src={deliveryMan.photoURL }
+                                    
+                                    className="h-24 w-24 rounded-full mx-auto mb-4"
+                                />
+                                <h3 className="text-xl font-bold mb-2">{deliveryMan.name}</h3>
+                                <p className="text-gray-600 mb-4">
+                                    Number of Parcels Delivered: 
+                                </p>
+                                
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
             
