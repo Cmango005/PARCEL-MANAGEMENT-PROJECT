@@ -17,7 +17,7 @@ const Dashboard = () => {
     
     return (
         <div className="flex">
-            <div className="w-64 min-h-screen " style={{background: "linear-gradient(270deg, #fa6fdc, #6e6bd8)"}}>
+            <div className="w-64 min-h-screen " style={{background: "linear-gradient(270deg, #1ee3bf, #6e6bd8)"}}>
                 <div className="flex justify-center py-2 space-x-1 ">
                     <img className="h-10 w-14 shadow-2xl rounded-md" src="https://i.ibb.co/rHWB3R4/istockphoto-1195743934-612x612.jpg" alt="" />
                     <p className="text-xl font-bold mt-2"><span className="text-cyan-100">Panda</span><span className="text-white">Parcel</span></p>
@@ -83,7 +83,7 @@ const Dashboard = () => {
                 </ul>
             </div>
             <div className="flex-1 bg-white">
-                <div className="h-16" style={{background: "linear-gradient(90deg, #fa6fdc, #6e6bd8)"}} >
+                <div className="h-16" style={{background: "linear-gradient(90deg, #1ee3bf, #6e6bd8)"}} >
                     <Marquee>
                         <div className="flex space-x-36">
                             <div className="flex items-center">

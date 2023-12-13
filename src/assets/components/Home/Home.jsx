@@ -6,7 +6,7 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 const Home = () => { 
     return (
-        <div style={{background: "linear-gradient(270deg, #fa6fdc, #6e6bd8)"}}>
+        <div style={{background: "linear-gradient(270deg, #1ee3bf, #6e6bd8)"}}>
             <section className="relative h-96 bg-cover bg-center" style={{ backgroundImage: "url('https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg')" }}>
                 <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -70,7 +70,7 @@ const Home = () => {
             </section>
             <section className="mt-20">
                 <div className="container mx-auto mt-8">
-                    <h2 className="text-2xl font-bold mb-4">Top 5 Delivery Men</h2>
+                    <h2 className="text-4xl font-bold mb-4 wel text-white">Top 5 Delivery Men</h2>
                    
                 </div>
             </section>

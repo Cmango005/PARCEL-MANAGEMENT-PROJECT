@@ -2,7 +2,7 @@
 
 const Footer = () => {
     return (
-        <footer style={{ background: "linear-gradient(270deg, #fa6fdc, #6e6bd8)" }} className=" text-white py-8 mt-4">
+        <footer style={{ background: "linear-gradient(270deg, #1ee3bf, #6e6bd8)" }} className=" text-white py-8 mt-4">
             <div className="container mx-auto flex flex-col space-y-3 items-center bg-opacity-0">
                 <div className="mb-4 flex flex-col items-center">
                     <div className="flex p-5">

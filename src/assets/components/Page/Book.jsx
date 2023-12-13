@@ -10,7 +10,6 @@ const Book = () => {
     const { user } = useContext(AuthContext)
     const { register, handleSubmit, watch, setValue } = useForm();
 
-    // Calculate price based on parcel weight
     const calculatePrice = (parcelWeight) => {
         const price = parseInt(parcelWeight * 50);
         return price;
@@ -22,9 +21,9 @@ const Book = () => {
 
     const orderDate = `${year}-${month}-${day}`;
     const status = 'pending'
-    // Handle form submission
+   
     const onSubmit = async (data) => {
-        // Perform any additional logic or API calls here
+       
         console.log(data);
 
         const bookItem = {
@@ -61,13 +60,13 @@ const Book = () => {
 
     };
 
-    // Watch for changes in parcel weight and update the price accordingly
+    
     const watchParcelWeight = watch("parcelWeight", 0);
     useEffect(() => {
         setValue("price", calculatePrice(watchParcelWeight));
     }, [watchParcelWeight, setValue]);
     return (
-        <div className="p-5" style={{background: "linear-gradient(135deg, #fa6fdc, #6e6bd8)"}}>
+        <div className="p-5" style={{background: "linear-gradient(135deg, #1ee3bf, #6e6bd8)"}}>
             <p className="text-center font-bold text-3xl">Place Your Order</p>
             <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -102,7 +101,7 @@ const Book = () => {
                     </div>
                 </div>
 
-                {/* Phone Number */}
+               
                 <div className="form-control w-full my-6">
                     <label className="label">
                         <span className="label-text">Phone Number</span>
@@ -156,7 +155,7 @@ const Book = () => {
                         />
                     </div>
                 </div>
-                {/* Parcel Weight */}
+    
                 <div className="flex gap-5">
                     <div className="form-control w-full my-6">
                         <label className="label">
@@ -212,7 +211,6 @@ const Book = () => {
                     </div>
                 </div>
 
-                {/* Parcel Delivery Address */}
                 <div className="form-control w-full my-6">
                     <label className="label">
                         <span className="label-text">Parcel Delivery Address</span>
@@ -225,8 +223,6 @@ const Book = () => {
                     ></textarea>
                 </div>
 
-
-                {/* Book Button */}
                 <button type="submit" className="btn">
                     Book Parcel <MdOutlineBookmark className="ml-4" />
                 </button>

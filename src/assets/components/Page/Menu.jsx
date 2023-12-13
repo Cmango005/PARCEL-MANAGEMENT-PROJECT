@@ -12,7 +12,7 @@ const Menu = () => {
             })
     }, [menu])
     return (
-        <div className="min-h-screen p-2" style={{ background: "linear-gradient(270deg, #fa6fdc, #6e6bd8)" }}>
+        <div className="min-h-screen p-2" style={{ background: "linear-gradient(90deg, #1ee3bf, #6e6bd8)" }}>
             <h1 className="text-center font-semibold text-2xl p-3 text-white wel">OUR SELLING ITEMS......</h1>
             <div className="grid grid-cols-3 p-3 gap-5">
                 {

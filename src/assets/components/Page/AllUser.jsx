@@ -11,7 +11,7 @@ const AllUser = () => {
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [users])
-
+    const deliveryMan = users.filter(delivery=> delivery.role === 'Delivery-Man')
     const handleMakeAdmin = user => {
         fetch(`http://localhost:5000/users/admin/${user._id}`, {
             method: 'PATCH',
@@ -50,7 +50,10 @@ const AllUser = () => {
     
     return (
         <div className="">
-            <p>user:{users.length}</p>
+            <div className="flex space-x-10">
+            <p>User:{users.length}</p>
+            <p>Total Delivery-Man: {deliveryMan.length}</p>
+            </div>
             <div className="overflow-x-auto p-5">
                 <table className="table w-3/4">
                     {/* head */}
