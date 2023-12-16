@@ -222,6 +222,30 @@ const Book = () => {
                         className="textarea textarea-bordered h-24 w-full"
                     ></textarea>
                 </div>
+                <div className="form-control w-full my-6">
+                    <label className="label">
+                        <span className="label-text">Delivery Address Latitude</span>
+                    </label>
+                    <input
+                        type="number"
+                        placeholder="Delivery Address Latitude"
+                        {...register("deliveryAddressLatitude", { required: true })}
+                        required
+                        className="input input-bordered w-full"
+                    />
+                </div>
+                <div className="form-control w-full my-6">
+                    <label className="label">
+                        <span className="label-text">Delivery Address Longitude</span>
+                    </label>
+                    <input
+                        type="number"
+                        placeholder="Delivery Address Longitude"
+                        {...register("deliveryAddressLongitude", { required: true })}
+                        required
+                        className="input input-bordered w-full"
+                    />
+                </div>
 
                 <button type="submit" className="btn">
                     Book Parcel <MdOutlineBookmark className="ml-4" />

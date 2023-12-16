@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Map from 'react-map-gl';
 
 const MyDeliverItems = () => {
     const { user } = useContext(AuthContext);
@@ -37,6 +38,10 @@ const MyDeliverItems = () => {
             });
 
     }
+    const [selectedParcel, setSelectedParcel] = useState('');
+    const handleParcelLocation = (parcel) => {
+        setSelectedParcel(parcel);
+    };
     return (
         <div className="p-1">
             <table className="min-w-full divide-y divide-gray-200">
@@ -70,16 +75,31 @@ const MyDeliverItems = () => {
                                         Deliver
                                     </button>
                                         <ToastContainer />
-                                    </>
-                                }
+                                        <label htmlFor="my_modal_7" onClick={() => handleParcelLocation(parcel)} className="btn">See Location</label>
 
-                                {/* <button
-                  //onClick={() => handleCancel(parcel._id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded mr-2"
-                >
-                  Cancel
-                </button> */}
-                            </td>
+                                        {/* Put this part before </body> tag */}
+                                        <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+                                        <div className="modal" role="dialog">
+                                            <div className="modal-box">
+
+                                                <Map
+                                                    mapboxAccessToken={import.meta.env.VITE_Map_Token}
+                                                    initialViewState={{
+                                                        longitude: selectedParcel.deliveryAddressLongitude,
+                                                        latitude: selectedParcel.deliveryAddressLatitude,
+                                                        zoom: 3.5
+                                                    }}
+                                                    style={{ width: 600, height: 400 }}
+                                                    mapStyle="mapbox://styles/mapbox/streets-v11"
+                                                >
+
+                                                </Map>
+                                            </div>
+                                            <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
+                                            </div>
+                                        </>
+                                }
+                         </td>
                         </tr>
                     ))}
 

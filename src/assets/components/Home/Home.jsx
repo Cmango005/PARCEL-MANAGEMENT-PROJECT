@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
-import CountUp from "react-countup/build/CountUp";
+import CountUp from 'react-countup';
 const Home = () => { 
     const [users, setUsers] = useState([]);
     useEffect(() => {
