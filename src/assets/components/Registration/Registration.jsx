@@ -13,12 +13,13 @@ const Registration = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser } = useContext(AuthContext);
     const onSubmit = data => {
-        createUser(data.email, data.password, data.name, data.photoURL)
+        createUser(data.email, data.password, data.name, data.photoURL, data.phoneNumber)
             .then(result => {
                 const userInfo = {
                     photoURL: data?.photoURL,
                     name: data?.name,
-                    email: data?.email
+                    email: data?.email,
+                    phone: data?.phoneNumber
                 }
                 
                 fetch('http://localhost:5000/users',{
@@ -60,6 +61,13 @@ const Registration = () => {
                             </label>
                             <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
                             {errors.name && <span className="text-red-600">Name is required</span>}
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Phone Number</span>
+                            </label>
+                            <input type="number"  {...register("phoneNumber", { required: true })} placeholder="Phone Number" className="input input-bordered" />
+                            {errors.phoneNumber && <span className="text-red-600">Phone Number is required</span>}
                         </div>
                         <div className="form-control">
                                 <label className="label">

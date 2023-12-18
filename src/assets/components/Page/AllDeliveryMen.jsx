@@ -9,7 +9,32 @@ const AllDeliveryMen = () => {
       .then(res => res.json())
       .then(data => setUsers(data))
      },[users])
-    const deliveryMan = users.filter(user => user.role === "Delivery-Man")
+    const delivery = users.filter(user => user.role === "Delivery-Man")
+    const name = () => {
+      return delivery.map((man, index) => (
+        <div key={man._id} className="space-x-10">
+          <td className="py-2">{index + 1}.{man.name}</td>
+        </div>
+      ));
+    };
+  
+    const phone = () => {
+      return delivery.map((man) => (
+        <div key={man._id} className="space-x-10">
+          <td className="py-2">{man.phone}</td>
+        </div>
+      ));
+    };
+    const [allOrder, setAllOrder] = useState([]);
+    useEffect(()=>{
+      fetch('http://localhost:5000/order')
+      .then(res => res.json())
+      .then(data => setAllOrder(data));
+    },[])
+    const countDeliveredOrders = (deliveryMan) => {
+      return allOrder.filter(order => order.status === "delivered" && order.deliveryMan === deliveryMan.email).length;
+    };
+
     return (
         <div className="container mx-auto mt-8">
         <h2 className="text-2xl font-bold mb-4">All Delivery Men</h2>
@@ -24,14 +49,18 @@ const AllDeliveryMen = () => {
             </tr>
           </thead>
           <tbody>
-            {deliveryMan.map((man, index) => (
-              <tr key={index}>
-                <td className="py-2">{man.name}</td>
-                <td className="py-2">{man.phoneNumber}</td>
-                <td className="py-2">{man.parcelsDelivered}</td>
-                <td className="py-2">{man.averageReview}</td>
-              </tr>
-            ))}
+          <tr className="text-center">
+            <td className="py-2">{name()}</td>
+            <td className="py-2">{phone()}</td>
+            <td className="py-2">
+              {delivery.map((man) => (
+                <div key={man._id} className="space-x-10">
+                  {countDeliveredOrders(man)}
+                </div>
+              ))}
+            </td>
+            
+          </tr>
           </tbody>
         </table>
       </div>
