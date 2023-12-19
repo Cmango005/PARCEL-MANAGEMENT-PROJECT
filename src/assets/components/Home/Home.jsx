@@ -6,6 +6,19 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
 import CountUp from 'react-countup';
+import { Parallax } from "react-parallax";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+import './Home.css';
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 const Home = () => { 
     const [users, setUsers] = useState([]);
     useEffect(() => {
@@ -22,30 +35,37 @@ const Home = () => {
     }, [allOrder])
     const delivered = allOrder.filter(delivery => delivery.status === 'delivered')
 
-    const deliveryMan = users.filter(user => user?.role === "Delivery-Man");
-    //console.log(deliveryMan.photoURL)
+    const delivery = users.filter(user => user?.role === "Delivery-Man");
+    //console.log(delivery.photoURL)
+    const countDeliveredOrders = (deliveryMan) => {
+        return allOrder.filter(order => order.status === "delivered" && order.deliveryMan === deliveryMan.email).length;
+    };
     return (
         <div style={{background: "linear-gradient(270deg, #1ee3bf, #6e6bd8)"}}>
-            <section className="relative h-96 bg-cover bg-center" style={{ backgroundImage: "url('https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg')" }}>
-                <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center text-white">
-                        <h1 className="text-4xl font-extrabold mb-4">Efficient Parcel Management</h1>
-                        <p className="text-lg mb-6">Track, manage, and deliver with ease.</p>
-                        <div className="flex justify-center">
-                            <div className="relative">
-                                <input
-                                    type="text"
-                                    placeholder="Search parcels..."
-                                    className="py-2 px-4 rounded-full w-64 text-black md:w-96 focus:outline-none"
-                                />
-                                <button className="absolute right-0 top-0 h-full px-4 py-2 bg-blue-500 rounded-r-full focus:outline-none">
-                                    <FaSearch />
-                                </button>
+            <section className="" >
+            <Parallax blur={5} bgImage="https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg" bgImageAlt="the cat" strength={200}>
+                    <div className="hero min-h-screen" >
+                        <div className="hero-overlay bg-opacity-60"></div>
+                        <div className="hero-content text-center text-neutral-content">
+                            <div className="max-w-md ">
+                                <h1 className="text-4xl font-extrabold mb-4 text-white">Efficient Parcel Management</h1>
+                                <p className="text-lg mb-6 text-white">Track, manage, and deliver with ease.</p>
+                                <div className="flex justify-center">
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            placeholder="Search parcels..."
+                                            className="py-2 px-4 rounded-full w-64 bg-white text-black md:w-96 focus:outline-none"
+                                        />
+                                        <button className="absolute right-0 top-0 h-full px-4 py-2 bg-blue-500 rounded-r-full focus:outline-none">
+                                            <FaSearch />
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </Parallax>
                 <Navbar></Navbar>
             </section>
            
@@ -110,21 +130,44 @@ const Home = () => {
             <section className="mt-20">
                 <div className="container mx-auto mt-8">
                     <h2 className="text-4xl font-bold mb-4 wel text-white">Top 5 Delivery Men</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                        {deliveryMan.map((deliveryMan, index) => (
-                            <div key={index} className="bg-white p-6 rounded-md shadow-md">
-                                <img
-                                    src={deliveryMan.photoURL }
-                                    
-                                    className="h-24 w-24 rounded-full mx-auto mb-4"
-                                />
-                                <h3 className="text-xl font-bold mb-2">{deliveryMan.name}</h3>
-                                <p className="text-gray-600 mb-4">
-                                    Number of Parcels Delivered: 
-                                </p>
-                                
-                            </div>
-                        ))}
+                    <div className="">
+                        <Swiper
+                            spaceBetween={30}
+                            centeredSlides={true}
+                            autoplay={{
+                                delay: 2500,
+                                disableOnInteraction: false,
+                            }}
+                            pagination={{
+                                clickable: true,
+                            }}
+                            navigation={true}
+                            modules={[Autoplay, Pagination, Navigation]}
+                            className="mySwiper"
+                            
+                        >
+                            {delivery.map((deliveryMan, index) => (
+                                <SwiperSlide key={index} className="bg-white p-6 rounded-md h-28 shadow-md ">
+                                    <div className="h-44 flex items-center space-x-40">
+                                    <img
+                                        src={deliveryMan.photoURL}
+
+                                        className="h-24 w-24 rounded-full mb-4"
+                                    />
+                                    <div>
+                                        <h3 className="text-xl font-bold mb-2">{deliveryMan.name}</h3>
+                                        <p className="text-gray-600 mb-4 text-base font-bold">
+                                            Number of Parcels Delivered: {countDeliveredOrders(deliveryMan)}
+
+                                        </p>
+                                    </div>
+                                    </div>
+
+                                </SwiperSlide>
+                            ))}
+
+                        </Swiper>
+
                     </div>
                 </div>
             </section>
