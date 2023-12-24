@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import Map from 'react-map-gl';
-
+import Map, { Marker } from 'react-map-gl';
+import { FaLocationPin } from "react-icons/fa6";
 const MyDeliverItems = () => {
     const { user } = useContext(AuthContext);
 
@@ -40,7 +40,10 @@ const MyDeliverItems = () => {
     }
     const [selectedParcel, setSelectedParcel] = useState('');
     const handleParcelLocation = (parcel) => {
+        console.log(parcel)
         setSelectedParcel(parcel);
+        
+
     };
     return (
         <div className="p-1">
@@ -85,21 +88,30 @@ const MyDeliverItems = () => {
                                                 <Map
                                                     mapboxAccessToken={import.meta.env.VITE_Map_Token}
                                                     initialViewState={{
-                                                        longitude: selectedParcel.deliveryAddressLongitude,
-                                                        latitude: selectedParcel.deliveryAddressLatitude,
+                                                        longitude: parseFloat(selectedParcel.deliveryAddressLongitude),
+                                                        latitude: parseFloat(selectedParcel.deliveryAddressLatitude),
                                                         zoom: 3.5
                                                     }}
                                                     style={{ width: 600, height: 400 }}
-                                                    mapStyle="mapbox://styles/mapbox/streets-v11"
+                                                    mapStyle="mapbox://styles/mapbox/streets-v12"
                                                 >
-
+                                                    {!isNaN(parseFloat(selectedParcel.deliveryAddressLongitude)) && !isNaN(parseFloat(selectedParcel.deliveryAddressLatitude)) && (
+                                                        <Marker
+                                                            longitude={parseFloat(selectedParcel.deliveryAddressLongitude)}
+                                                            latitude={parseFloat(selectedParcel.deliveryAddressLatitude)}
+                                                            anchor="bottom"
+                                                        >
+                                                            <FaLocationPin />
+                                                        </Marker>
+                                                    )}
                                                 </Map>
+
                                             </div>
                                             <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
-                                            </div>
-                                        </>
+                                        </div>
+                                    </>
                                 }
-                         </td>
+                            </td>
                         </tr>
                     ))}
 

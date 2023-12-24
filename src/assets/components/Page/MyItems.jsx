@@ -49,7 +49,7 @@ const MyItems = () => {
             .then(data => setAllOrder(data))
     }, [allOrder])
     const [isReviewDone, setIsReviewDone] = useState(false);
-    const handleSubmit = async (id, review, deliveryMan, deliveryDate) => {
+    const handleSubmit = async (id, review, deliveryMan, deliveryDate, photo) => {
         setIsReviewDone(true);
         console.log(handleSubmit)
         fetch(`http://localhost:5000/order/${id}`, {
@@ -57,7 +57,7 @@ const MyItems = () => {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ status: "delivered", review, deliveryMan, deliveryDate })
+            body: JSON.stringify({ status: "delivered", review, deliveryMan, deliveryDate, photo })
         })
             .then(res => res.json())
             .then(data => {
@@ -68,6 +68,7 @@ const MyItems = () => {
                     updated.deliveryMan = deliveryMan;
                     updated.deliveryDate = deliveryDate;
                     updated.review = review;
+                    updated.photo = photo
                     const newOrder = [updated, ...remaining];
                     setAllOrder(newOrder);
                     toast('Thanks for your valuable review');
@@ -149,7 +150,22 @@ const MyItems = () => {
                                                         <div className="modal" role="dialog">
                                                             <div className="modal-box">
                                                                 <h2 className="text-2xl font-bold mb-4">Manage Parcel</h2>
+                                                                <label className="label">
+                                                                    <span className="label-text">My Photo</span>
+                                                                </label>
+                                                                <img
+                                                                    readOnly
+                                                                    src={user?.photoURL}
+                                                                    className="w-32 h-32 rounded-full mb-4"
+                                                                />
+                                                                <input
+                                                                    type="text"
+                                                                    placeholder="Name"
+                                                                    readOnly
+                                                                    value={user?.photoURL}
 
+                                                                    className="input input-bordered  hidden w-full"
+                                                                />
 
                                                                 <label className="label">
                                                                     <span className="label-text">Name</span>
@@ -181,7 +197,7 @@ const MyItems = () => {
 
 
                                                                 {/* Submit Button */}
-                                                                <button onClick={() => handleSubmit(selectedParcel._id, review, selectedParcel.deliveryMan, selectedParcel.deliveryDate)} className={`btn btn-info ${isReviewDone ? 'cursor-not-allowed opacity-50' : ''}`}>
+                                                                <button onClick={() => handleSubmit(selectedParcel._id, review, selectedParcel.deliveryMan, selectedParcel.deliveryDate, user.photoURL)} className={`btn btn-info ${isReviewDone ? 'cursor-not-allowed opacity-50' : ''}`}>
                                                                     Submit Review
                                                                     <MdOutlineBookmark className="ml-4" />
                                                                 </button>

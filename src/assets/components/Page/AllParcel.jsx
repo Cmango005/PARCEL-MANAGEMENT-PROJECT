@@ -22,8 +22,16 @@ const AllParcel = () => {
     const [selectedDeliveryman, setSelectedDeliveryman] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
     const [isAssigned, setIsAssigned] = useState(false);
+    const resetState = () => {
+        setSelectedParcel('');
+        setSelectedDeliveryman('');
+        setDeliveryDate('');
+        setIsAssigned(false);
+    };
     const handleManageParcel = (parcel) => {
+        resetState();
         setSelectedParcel(parcel);
+        
     };
 
     const handleAssignDelivery = async (id) => {
@@ -34,7 +42,7 @@ const AllParcel = () => {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ status: 'on the way', deliveryMan: selectedDeliveryman, deliveryDate, review : 'Not Yet' })
+            body: JSON.stringify({ status: 'on the way', deliveryMan: selectedDeliveryman, deliveryDate })
         })
             .then(res => res.json())
             .then(data => {
@@ -45,12 +53,13 @@ const AllParcel = () => {
                     updated.status = 'on the way';
                     updated.deliveryMan = selectedDeliveryman;
                     updated.deliveryDate = deliveryDate;
-                    updated.review = "Not Yet" ;
+                   
                     const newOrder = [updated, ...remaining];
                     setAllOrder(newOrder);
                     toast(`${selectedDeliveryman} assigned for delivery`);
                 }
             });
+            
 
     };
     return (

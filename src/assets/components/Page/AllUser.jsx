@@ -11,7 +11,7 @@ const AllUser = () => {
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [users])
-    const deliveryMan = users.filter(delivery=> delivery.role === 'Delivery-Man')
+    const deliveryMan = users.filter(delivery => delivery.role === 'Delivery-Man')
     const handleMakeAdmin = user => {
         fetch(`http://localhost:5000/users/admin/${user._id}`, {
             method: 'PATCH',
@@ -29,30 +29,39 @@ const AllUser = () => {
             })
     }
     const handleMakeDeliveryMan = user => {
-        
-        fetch(`http://localhost:5000/users/delivery-man/${user._id}`, {
-        method: 'PATCH',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify()
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (data.modifiedCount > 0) {
 
-                toast(`${user.name} is Delivery Man now`)
-            }
+        fetch(`http://localhost:5000/users/delivery-man/${user._id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify()
         })
-}
-    
-    
-    
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+
+                    toast(`${user.name} is Delivery Man now`)
+                }
+            })
+    }
+    const [allOrder, setAllOrder] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000/order')
+            .then(res => res.json())
+            .then(data => setAllOrder(data))
+    }, [allOrder])
+
+    const myBook = (my) => {
+        return allOrder.filter(me => me.email === my.email).length
+    }
+
+
     return (
         <div className="">
             <div className="flex space-x-10">
-            <p>User:{users.length}</p>
-            <p>Total Delivery-Man: {deliveryMan.length}</p>
+                <p>User:{users.length}</p>
+                <p>Total Delivery-Man: {deliveryMan.length}</p>
             </div>
             <div className="overflow-x-auto p-5">
                 <table className="table w-3/4">
@@ -73,8 +82,8 @@ const AllUser = () => {
                                 <th>{index + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                               <td></td>
-                               <td></td>
+                                <td>{myBook(user)}</td>
+                                <td></td>
                                 <td><div className="dropdown dropdown-right">
                                     <div tabIndex={0} role="button" className="btn m-1">Role</div>
                                     <ul className="dropdown-content z-[1] menu p-2 shadow-2xl bg-base-100 rounded-box w-52">
@@ -90,7 +99,7 @@ const AllUser = () => {
                                                 <button onClick={() => handleMakeDeliveryMan(user)}>
                                                     <li><a>Make Delivery Man</a></li>
                                                 </button>
-                                                
+
                                             </>
                                         )}
 
