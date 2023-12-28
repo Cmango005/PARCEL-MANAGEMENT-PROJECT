@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Map, { Marker } from 'react-map-gl';
 import { FaLocationPin } from "react-icons/fa6";
+import "mapbox-gl/dist/mapbox-gl.css"
 const MyDeliverItems = () => {
     const { user } = useContext(AuthContext);
 
@@ -42,7 +43,7 @@ const MyDeliverItems = () => {
     const handleParcelLocation = (parcel) => {
         console.log(parcel)
         setSelectedParcel(parcel);
-        
+
 
     };
     return (
@@ -90,8 +91,9 @@ const MyDeliverItems = () => {
                                                     initialViewState={{
                                                         longitude: parseFloat(selectedParcel.deliveryAddressLongitude),
                                                         latitude: parseFloat(selectedParcel.deliveryAddressLatitude),
-                                                        zoom: 3.5
+                                                        zoom: 3
                                                     }}
+                                                    
                                                     style={{ width: 600, height: 400 }}
                                                     mapStyle="mapbox://styles/mapbox/streets-v12"
                                                 >
@@ -100,8 +102,9 @@ const MyDeliverItems = () => {
                                                             longitude={parseFloat(selectedParcel.deliveryAddressLongitude)}
                                                             latitude={parseFloat(selectedParcel.deliveryAddressLatitude)}
                                                             anchor="bottom"
+                                                            
                                                         >
-                                                            <FaLocationPin />
+                                                            <FaLocationPin size={30}/>
                                                         </Marker>
                                                     )}
                                                 </Map>

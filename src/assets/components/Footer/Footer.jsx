@@ -1,40 +1,55 @@
-
+import { FaFacebookSquare, FaGithub, FaLinkedin, FaPhoneAlt } from "react-icons/fa";
+import { MdOutlineMail } from "react-icons/md";
 
 const Footer = () => {
     return (
-        <footer style={{ background: "linear-gradient(270deg, #1ee3bf, #6e6bd8)" }} className=" text-white py-8 mt-4">
-            <div className="container mx-auto flex flex-col space-y-3 items-center bg-opacity-0">
-                <div className="mb-4 flex flex-col items-center">
-                    <div className="flex p-5">
-                        <img className="h-10 w-14 shadow-2xl" src="https://i.ibb.co/rHWB3R4/istockphoto-1195743934-612x612.jpg" alt="" />
-                        <p className="text-xl font-bold mt-2"><span className="text-cyan-300">Panda</span>Parcel</p>
+        <footer data-theme="business" className=" text-white py-8 mt-4">
+
+            <div className="flex flex-col lg:flex-row justify-around  items-start">
+                <div className="lg:text-left lg:mr-12">
+                    <div className="flex ">
+                        <img src="https://i.ibb.co/GFB9Lcr/Black-and-White-Monogram-Business-Logo-1.gif" alt="" className="h-16 w-32" />
+
                     </div>
-                    <p className="text-white font-medium text-xl">Efficient and Reliable Parcel Services</p>
+                    <p className="flex items-center gap-1"><MdOutlineMail /> pandaparcel@gmail.com</p>
+                    <p className="flex items-center gap-1"><FaPhoneAlt /> +8801688132442</p>
                 </div>
 
-                <div className="flex space-x-4 font-bold text-2xl mb-4">
+                <div className="flex flex-col mt-5 lg:mt-0 lg:mr-12">
                     <a href="#" className="text-white transition duration-300">Home</a>
                     <a href="#" className="text-white transition duration-300">Features</a>
                     <a href="#" className="text-white transition duration-300">About Us</a>
                     <a href="#" className="text-white transition duration-300">Contact</a>
                 </div>
-
-                <div className="flex space-x-4">
-                    <a href="#" className="text-white transition duration-300">
-                        <i className="fab fa-facebook-square"></i>
+                <div className="flex space-x-4 mt-5 lg:mt-0">
+                    <a
+                        href="https://www.linkedin.com/in/mehedi-hasan-b57160290/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <FaLinkedin />
                     </a>
-                    <a href="#" className="text-white transition duration-300">
-                        <i className="fab fa-twitter-square"></i>
+                    <a
+                        href="https://github.com/Cmango005"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <FaGithub />
                     </a>
-                    <a href="#" className="text-white transition duration-300">
-                        <i className="fab fa-linkedin"></i>
+                    <a
+                        href="https://www.facebook.com/Siam2442"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <FaFacebookSquare />
                     </a>
-                </div>
-
-                <div className="font-semibold text-xl">
-                    <p className="text-white">&copy; 2023 <span className="text-cyan-300">Panda</span> Parcel Management. All rights reserved.</p>
+                    {/* Add more social media icons as needed */}
                 </div>
             </div>
+            <div className="font-semibold text-xl text-center">
+                <p className="text-white">&copy; 2023 PandaParcel Management. All rights reserved.</p>
+            </div>
+
         </footer>
     );
 };

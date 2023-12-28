@@ -8,7 +8,11 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
 
 import { MdOutlineBookmark } from "react-icons/md";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import Checkout from "./Checkout";
 
+const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT)
 
 const MyItems = () => {
     const getStatusColor = (status) => {
@@ -37,11 +41,6 @@ const MyItems = () => {
             .then(data => setMyOrder(data))
     }, [user?.email])
 
-    const [selectedParcel, setSelectedParcel] = useState('');
-    const [review, setReview] = useState('');
-    const handleParcelReview = (parcel) => {
-        setSelectedParcel(parcel);
-    };
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
         fetch('http://localhost:5000/order')
@@ -57,14 +56,14 @@ const MyItems = () => {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ status: "delivered", review, deliveryMan, deliveryDate, photo })
+            body: JSON.stringify({ status: "paid", review, deliveryMan, deliveryDate, photo })
         })
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
                     const remaining = allOrder.filter(order => order._id !== id);
                     const updated = allOrder.find(order => order._id === id);
-                    updated.status = 'delivered';
+                    updated.status = 'paid';
                     updated.deliveryMan = deliveryMan;
                     updated.deliveryDate = deliveryDate;
                     updated.review = review;
@@ -76,19 +75,26 @@ const MyItems = () => {
             });
     };
 
-
-
-
-    const renderPayButton = (status) => {
-        if (status === "delivered") {
-            return (
-                <button className="btn btn-sm btn-success">
-                    Pay<FaMoneyBill className="ml-2" />
-                </button>
-            );
-        }
-        return null;
+    const [selectedParcel, setSelectedParcel] = useState('');
+    const [review, setReview] = useState('');
+    const handleParcelReview = (parcel) => {
+        setSelectedParcel(parcel);
     };
+    //const [isPaid, setIsPaid] = useState("");
+    const [selectedPayParcel, setSelectedPayParcel] = useState('');
+    const handleParcelPay = async (parcel) => {
+        console.log(parcel)
+        setSelectedPayParcel(parcel)
+    }
+    // const handlePaySubmit = async(id)=>{
+    //     fetch(`http://localhost:5000/order/${id}`, {
+    //         method: 'PATCH',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ status: "paid" })
+    //     })
+    // }
     const handleCancel = (id) => {
         fetch(`http://localhost:5000/order/${id}`, {
             method: 'DELETE'
@@ -144,74 +150,101 @@ const MyItems = () => {
                                             parcel.status === "delivered" ? <><div>
                                                 {
                                                     parcel.review ? <><button disabled className="px-3 py-2 rounded border-2 border-gray-950" >Thanks For Your Review </button></> : <>
-                                                        <label htmlFor="my_modal_7" onClick={() => handleParcelReview(parcel)} className="btn btn-sm btn-neutral">Review<FaStar className="" /></label>
+                                                        <div>
+                                                            <label htmlFor="my_modal_7" onClick={() => handleParcelPay(parcel)} className="btn btn-sm btn-neutral">Pay<FaMoneyBill className="ml-2" /></label>
+                                                            <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+                                                            <div className="modal" role="dialog">
+                                                                <div className="modal-box">
+                                                                    <h2 className="text-2xl font-bold mb-4">Pay Your Bail Please</h2>
+                                                                    <label className="label">
+                                                                        <span className="label-text">My Photo</span>
+                                                                    </label>
+                                                                    <img
+                                                                        readOnly
+                                                                        src={user?.photoURL}
+                                                                        className="w-32 h-32 rounded-full mb-4"
+                                                                    />
+                                                                    <div>
+                                                                        <Elements stripe={stripePromise}>
+                                                                            <Checkout selectedPayParcel={selectedPayParcel}></Checkout>
+                                                                        </Elements>
+                                                                    </div>
 
-                                                        <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-                                                        <div className="modal" role="dialog">
-                                                            <div className="modal-box">
-                                                                <h2 className="text-2xl font-bold mb-4">Manage Parcel</h2>
-                                                                <label className="label">
-                                                                    <span className="label-text">My Photo</span>
-                                                                </label>
-                                                                <img
-                                                                    readOnly
-                                                                    src={user?.photoURL}
-                                                                    className="w-32 h-32 rounded-full mb-4"
-                                                                />
-                                                                <input
-                                                                    type="text"
-                                                                    placeholder="Name"
-                                                                    readOnly
-                                                                    value={user?.photoURL}
-
-                                                                    className="input input-bordered  hidden w-full"
-                                                                />
-
-                                                                <label className="label">
-                                                                    <span className="label-text">Name</span>
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    placeholder="Name"
-                                                                    readOnly
-                                                                    value={user?.displayName}
-
-                                                                    className="input input-bordered w-full"
-                                                                />
-                                                                <label className="label">
-                                                                    <span className="label-text">Delivery Man</span>
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    readOnly
-                                                                    value={selectedParcel.deliveryMan}
-                                                                    className="input input-bordered w-full"
-                                                                />
-                                                                <label className='text-black'>Review</label>
-                                                                <textarea
-                                                                    type="text"
-                                                                    onChange={(e) => setReview(e.target.value)}
-                                                                    value={review}
-                                                                    className="textarea textarea-bordered h-24 w-full"
-                                                                ></textarea>
+                                                                </div>
 
 
-                                                                {/* Submit Button */}
-                                                                <button onClick={() => handleSubmit(selectedParcel._id, review, selectedParcel.deliveryMan, selectedParcel.deliveryDate, user.photoURL)} className={`btn btn-info ${isReviewDone ? 'cursor-not-allowed opacity-50' : ''}`}>
-                                                                    Submit Review
-                                                                    <MdOutlineBookmark className="ml-4" />
-                                                                </button>
-                                                                <ToastContainer></ToastContainer>
+                                                                <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
                                                             </div>
+                                                        </div>
+                                                        <div>
+                                                            <label htmlFor="my_modal_7" onClick={() => handleParcelReview(parcel)} className="btn btn-sm btn-neutral">Review<FaStar className="" /></label>
+
+                                                            <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+                                                            <div className="modal" role="dialog">
+                                                                <div className="modal-box">
+                                                                    <h2 className="text-2xl font-bold mb-4">Give Review</h2>
+                                                                    <label className="label">
+                                                                        <span className="label-text">{user?.displayName} Photo</span>
+                                                                    </label>
+                                                                    <img
+                                                                        readOnly
+                                                                        src={user?.photoURL}
+                                                                        className="w-32 h-32 rounded-full mb-4"
+                                                                    />
+                                                                    <input
+                                                                        type="text"
+                                                                        placeholder="Name"
+                                                                        readOnly
+                                                                        value={user?.photoURL}
+                                                                        className="input input-bordered hidden w-full"
+                                                                    />
+
+                                                                    <label className="label">
+                                                                        <span className="label-text">Name</span>
+                                                                    </label>
+                                                                    <input
+                                                                        type="text"
+                                                                        placeholder="Name"
+                                                                        readOnly
+                                                                        value={user?.displayName}
+
+                                                                        className="input input-bordered w-full"
+                                                                    />
+                                                                    <label className="label">
+                                                                        <span className="label-text">Delivery Man</span>
+                                                                    </label>
+                                                                    <input
+                                                                        type="text"
+                                                                        readOnly
+                                                                        value={selectedParcel.deliveryMan}
+                                                                        className="input input-bordered w-full"
+                                                                    />
+                                                                    <label className='text-black'>Review</label>
+                                                                    <textarea
+                                                                        type="text"
+                                                                        onChange={(e) => setReview(e.target.value)}
+                                                                        value={review}
+                                                                        className="textarea textarea-bordered h-24 w-full"
+                                                                    ></textarea>
 
 
-                                                            <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
+                                                                    {/* Submit Button */}
+                                                                    <button onClick={() => handleSubmit(selectedParcel._id, review, selectedParcel.deliveryMan, selectedParcel.deliveryDate, user.photoURL)} className={`btn btn-info ${isReviewDone ? 'cursor-not-allowed opacity-50' : ''}`}>
+                                                                        Submit Review
+                                                                        <MdOutlineBookmark className="ml-4" />
+                                                                    </button>
+                                                                    <ToastContainer></ToastContainer>
+                                                                </div>
+
+
+                                                                <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
+                                                            </div>
                                                         </div>
 
                                                     </>
                                                 }
                                             </div>
-                                                {renderPayButton(parcel.status)}</> :
+                                            </> :
                                                 parcel.status === "pending" ?
                                                     <><Link to={`/dashboard/update/${parcel._id}`}><button className="btn btn-sm btn-warning">
                                                         Update<FaEdit className="" />

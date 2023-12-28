@@ -51,7 +51,7 @@ const Registration = () => {
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Sign up now!</h1>
-                    <img src="" alt="" />
+                    <iframe src="https://lottie.host/embed/ba766bed-f707-45f5-9f95-55c02ec2a583/7NYsHptgLu.json" className="min-h-screen"></iframe>
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl p-3 bg-base-100">
                     <form onSubmit={handleSubmit(onSubmit)} className="card-body">

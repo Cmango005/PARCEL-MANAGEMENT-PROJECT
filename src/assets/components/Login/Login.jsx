@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useContext } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
@@ -7,7 +8,8 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css"
 import Navbar from "../Navbar/Navbar";
-
+import login from "../../../../public/login.json"
+import Lottie from "lottie-react";
 
 
 const Login = () => {
@@ -38,7 +40,7 @@ const Login = () => {
         googleSignIn(provider)
 
             .then(Result => {
-                
+
                 console.log(Result);
 
                 const userInfo = {
@@ -73,42 +75,69 @@ const Login = () => {
 
     return (
         <div>
-            <section className="hero min-h-screen bg-base-200 relative" style={{ backgroundImage: "url('https://i.ibb.co/ns4md2T/15-Bootstrap-login-forms32.webp')" }}>
+            <section className="hero bg-base-200 " style={{ backgroundImage: "url('https://i.ibb.co/ns4md2T/15-Bootstrap-login-forms32.webp')" }}>
 
-                
-                    <div className="absolute inset-0 backdrop-blur ">
 
-                        <div className="login-box h-4/5 ">
-                            <p  className="text-center wel text-xl font-bold text-white">Welcome To PandaParcel</p>
-                            <form onSubmit={handleLogin} className="">
-                                <div className="form-control user-box">
+                <div className="flex items-center justify-between space-x-28 p-5 mt-14">
 
-                                    <input type="email" placeholder="email" name="email" className="input input-bordered" required />
-                                </div>
-                                <div className="form-control user-box">
 
-                                    <input type="password" placeholder="password" name="password" className="input input-bordered" required />
 
-                                </div>
-                                <div className="form-control mt-1">
-                                    <button className="">Login</button>
-                                    <ToastContainer></ToastContainer>
-                                </div>
-                            </form>
-
-                            <div className="text-center ">
-                                <p className="ml-2 text-white font-semibold ">Have Not Account? Register Now<NavLink to='/registration'><button className="btn btn-outline btn-info mt-2">Registration</button></NavLink></p>
-                                <p className="text-center mb-1 p-1 text-white">OR Sign Up With</p>
-                                <button onClick={handleSignInGoogle} className="btn btn-accent text-white mb-3 ">GOOGLE <FcGoogle></FcGoogle></button>
-                               
+                    <div className="flex flex-col items-center justify-center login-form  w-3/5 p-10  inset-0 h-screen bg-transparent backdrop-blur">
+                        <p className="text-center wel text-xl font-bold text-white">Welcome To PandaParcel</p>
+                        <form onSubmit={handleLogin} >
+                            <div className="mb-4">
+                                <input
+                                    type="email"
+                                    placeholder="Email"
+                                    name="email"
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    required
+                                />
                             </div>
+                            <div className="mb-6">
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    required
+                                />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                    Login
+                                </button>
+                            </div>
+                            <ToastContainer />
+                        </form>
+
+                        <div className="text-center">
+                            <p className="text-white font-semibold">
+                                Don't have an account? Register Now{' '} <br />
+                                <NavLink to="/registration">
+                                    <button className="btn btn-outline btn-info mt-2">Registration</button>
+                                </NavLink>
+                            </p>
+                            <p className="text-center mb-1 p-1 text-white">OR Sign Up With</p>
+                            <button onClick={handleSignInGoogle} className="btn btn-accent text-white mb-3 bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">
+                                GOOGLE <FcGoogle />
+                            </button>
                         </div>
+
+
                     </div>
-                    
-                
+
+
+                    <div>
+                        <p className="font-bold text-3xl text-white wel">Login now...</p>
+                        <Lottie animationData={login} className="h-96"></Lottie>
+                    </div>
+                </div>
+
+
                 <Navbar></Navbar>
             </section>
-            
+
         </div>
     );
 };

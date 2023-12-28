@@ -16,10 +16,10 @@ const Menu = () => {
             <h1 className="text-center font-semibold text-2xl p-3 text-white wel">OUR SELLING ITEMS......</h1>
             <div className="grid grid-cols-3 p-3 gap-5">
                 {
-                    menu.map(items => <div key={items._id} className="card card-compact w-80 h-60 bg-white backdrop-blur-sm shadow-xl">
-                        <figure><img src={items.img} className="w-56 h-4/5" /></figure>
-                        <div className="card-body">
-                            <h2 className="card-title">{items.name}</h2>
+                    menu.map(items => <div key={items._id} className="card card-compact w-80 h-60 backdrop-blur bg-transparent text-white border-2 shadow-xl">
+                        <figure><img src={items.img} className="w-56 h-4/5 rounded" /></figure>
+                        <div className="card-body text-center text-xl font-bold">
+                            <h2 className="">{items.name}</h2>
                             <p>Price:{items.price_per_kg}$/kg</p>
 
                         </div>

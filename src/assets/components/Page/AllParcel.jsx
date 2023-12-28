@@ -29,6 +29,7 @@ const AllParcel = () => {
         setIsAssigned(false);
     };
     const handleManageParcel = (parcel) => {
+        //console.log(parcel)
         resetState();
         setSelectedParcel(parcel);
         
@@ -53,7 +54,6 @@ const AllParcel = () => {
                     updated.status = 'on the way';
                     updated.deliveryMan = selectedDeliveryman;
                     updated.deliveryDate = deliveryDate;
-                   
                     const newOrder = [updated, ...remaining];
                     setAllOrder(newOrder);
                     toast(`${selectedDeliveryman} assigned for delivery`);

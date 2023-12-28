@@ -19,7 +19,7 @@ const Profile = () => {
         console.log('Selected Profile Image:', profileImage);
     };
     return (
-        <div className="min-h-screen mx-auto flex items-center  " style={{ background: "linear-gradient(90deg, #fa6fdc, #6e6bd8)" }}>
+        <div className="h-5/6 mx-auto flex items-center  ">
             <div className="w-2/5 mx-auto p-6 rounded-md shadow-md bg-white">
                 <div className="mb-4 text-center">
                     <img
@@ -36,7 +36,7 @@ const Profile = () => {
                     />
                     <label
                         htmlFor="profileImageInput"
-                        className="cursor-pointer text-blue-500 underline"
+                        className="cursor-pointer btn btn-accent"
                     >
                         Upload Profile Picture
                     </label>

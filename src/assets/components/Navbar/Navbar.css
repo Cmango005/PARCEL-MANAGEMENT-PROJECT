@@ -1,12 +1,10 @@
 nav a.active {
     text-decoration: underline;
-    color: rgb(255, 255, 255);
+    color: rgb(243, 28, 214);
 
 }
 
-.back {
-    background: linear-gradient(270deg, #1ee3bf, #6e6bd8);
-}
+
 .advanced-button {
     padding: 10px 20px;
     font-size: 16px;

@@ -4,10 +4,12 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+// import cart from "../../../../public/cart.json"
+// import Lottie from "lottie-react";
 
 const Book = () => {
     const { user } = useContext(AuthContext)
-  
+
 
 
     const currentDate = new Date();
@@ -31,9 +33,11 @@ const Book = () => {
     useEffect(() => {
         calculatePrice();
     }, [parcelWeight]);
+
     const onSubmit = async (event) => {
+
         event.preventDefault();
-      
+
         const bookItem = {
             userName: user?.displayName,
             email: user?.email,
@@ -65,10 +69,11 @@ const Book = () => {
                     toast("Booking Confirm")
                 }
             })
+        event.target.reset();
     };
 
     return (
-        <div className="p-5" style={{background: "linear-gradient(135deg, #1ee3bf, #6e6bd8)"}}>
+        <div className="p-5" style={{ background: "linear-gradient(135deg, #1ee3bf, #6e6bd8)" }}>
             <p className="text-center font-bold text-3xl">Place Your Order</p>
             <form onSubmit={onSubmit}>
 
@@ -254,7 +259,6 @@ const Book = () => {
                     </div>
                 </div>
 
-                {/* Book Button */}
                 <button type="submit" className="btn">
                     Book Parcel <MdOutlineBookmark className="ml-4" />
                 </button>

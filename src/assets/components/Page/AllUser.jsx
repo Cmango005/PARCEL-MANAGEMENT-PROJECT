@@ -55,7 +55,12 @@ const AllUser = () => {
     const myBook = (my) => {
         return allOrder.filter(me => me.email === my.email).length
     }
-
+    const totalMoney = (my) =>{
+        const spent = allOrder.filter(me => me.email === my?.email)
+        const money = spent.reduce((sum, order) => sum + (order.price || 0), 0);
+        return money;
+       //console.log(money)
+    }
 
     return (
         <div className="">
@@ -83,7 +88,7 @@ const AllUser = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{myBook(user)}</td>
-                                <td></td>
+                                <td>{totalMoney(user)}</td>
                                 <td><div className="dropdown dropdown-right">
                                     <div tabIndex={0} role="button" className="btn m-1">Role</div>
                                     <ul className="dropdown-content z-[1] menu p-2 shadow-2xl bg-base-100 rounded-box w-52">

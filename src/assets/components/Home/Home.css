@@ -24,3 +24,7 @@
     display: block;
     object-fit: cover;
   }
+  .h{
+    -webkit-text-stroke: 1.5px  rgb(0, 0, 0) ;
+    color: transparent;
+  }

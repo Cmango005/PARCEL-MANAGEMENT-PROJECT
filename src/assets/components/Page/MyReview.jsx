@@ -18,16 +18,16 @@ const MyReview = () => {
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [users])
-    const userPic = users.find(my => my.name === myDelivery.userName)
+   
     return (
 
             <div className="p-5">
             <p className="text-center font-bold text-xl">My Reviews</p>
             <hr />
-            <div className="grid grid-cols-3 gap-5">
+            <div className="grid grid-cols-3 gap-5 p-10">
                 {
                     myDelivery.map(my => <div key={my._id}>
-                        <img src={userPic ? userPic.photoURL : 'default-placeholder-url'} alt="" className="h-20 w-20 rounded-full flex justify-center" />
+                        <img src={my.photo} alt="" className="h-20 w-24 rounded-sm flex justify-center" />
                         <p>Customer Name: {my.userName}</p>
 
                         <p>Review:{my.review}</p>
