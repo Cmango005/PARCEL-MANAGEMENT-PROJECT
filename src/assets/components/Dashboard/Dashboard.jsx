@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { MdLocalGroceryStore, MdOutlineBorderColor, MdOutlineReviews, MdOutlineBookmark } from "react-icons/md";
+import { MdOutlineBorderColor, MdOutlineReviews, MdOutlineBookmark } from "react-icons/md";
 import { GoListOrdered } from "react-icons/go";
 import { FaHome, FaUsers } from "react-icons/fa";
 import { FcStatistics } from "react-icons/fc";
@@ -21,7 +21,7 @@ const Dashboard = () => {
         logOut()
 
             .then(
-              navigate("/")
+                navigate("/")
             )
             .catch()
     }
@@ -30,20 +30,24 @@ const Dashboard = () => {
         <div className="flex">
             <div className="w-64 min-h-screen " style={{ background: "linear-gradient(270deg, #0C7D68, #6e6bd8)" }}>
                 <div className="flex justify-center py-2 space-x-1 ">
-                    <img className="h-10 w-14 shadow-2xl rounded-md" src="https://i.ibb.co/rHWB3R4/istockphoto-1195743934-612x612.jpg" alt="" />
-                    <p className="text-xl font-bold mt-2"><span className="text-cyan-100">Panda</span><span className="text-white">Parcel</span></p>
+                    {/* <img className="h-10 w-14 shadow-2xl rounded-md" src="https://i.ibb.co/rHWB3R4/istockphoto-1195743934-612x612.jpg" alt="" /> */}
+                    <p className="text-xl font-bold mt-2"><span className="text-black">Panda</span><span className="text-white">Parcel</span></p>
 
                 </div>
-                <hr className="mt-2" />
+                <hr className="mt-3" />
                 <ul className="menu p-5 space-y-5 text-base text-white ">
+                    {isAdmin && <p className="text-2xl font-bold text-center">ADMIN</p>}
+                    {isDeliveryMen && <p className="text-2xl font-bold text-center">DELIVERYMAN</p>}
+                    {!isAdmin && !isDeliveryMen && <p className="text-2xl font-bold text-center">USER</p>}
                     <img src={user?.photoURL} className="w-32 h-32 rounded-full mx-auto" alt="" />
-                    <div className="space-x-3 flex flex-col justify-center">
+                    <div className="space-x-3 flex flex-col justify-center items-center">
+
                         <iframe src="https://lottie.host/embed/65591004-7a06-4cbe-a02b-22ebf6d7e43a/xqFjmy78YR.json" className="h-10 w-44"></iframe>
                         <p className="mx-auto text-2xl font-bold"> {user?.displayName}</p>
                     </div>
-                    <li className="flex hover:bg-gray-700 hover:rounded-lg">
+                    {/* <li className="flex hover:bg-gray-700 hover:rounded-lg">
                         <NavLink to='/dashboard/menu'><MdLocalGroceryStore />Items</NavLink>
-                    </li>
+                    </li> */}
 
                     {
                         user ? <>{

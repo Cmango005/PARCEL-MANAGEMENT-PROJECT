@@ -27,6 +27,7 @@ import MyDeliverItems from './assets/components/Page/MyDeliverItems';
 import MyReview from './assets/components/Page/MyReview';
 import Statistics from './assets/components/Page/Statistics';
 import Update from './assets/components/Page/Update';
+import Payment from './assets/components/Page/Payment';
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -98,6 +99,11 @@ const router = createBrowserRouter([
       {
         path:'/dashboard/update/:id',
         element:<Update></Update>,
+        loader:({params})=> fetch(`http://localhost:5000/order/${params.id}`)
+      },
+      {
+        path:'/dashboard/payment/:id',
+        element:<Payment></Payment>,
         loader:({params})=> fetch(`http://localhost:5000/order/${params.id}`)
       }
     ]

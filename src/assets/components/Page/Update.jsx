@@ -32,7 +32,7 @@ const Update = () => {
             userName: user?.displayName,
             email: user?.email,
             phoneNumber: event.target.phoneNumber.value,
-            itemName: event.target.itemName.value,
+            type: event.target.type.value,
             parcelWeight: parseFloat(event.target.parcelWeight.value),
             receiverName: event.target.receiverName.value,
             receiverPhoneNumber: event.target.receiverPhoneNumber.value,
@@ -116,9 +116,9 @@ const Update = () => {
                             <span className="label-text">Items*</span>
                         </label>
                         <input type="text"
-                            defaultValue={order?.itemName}
+                            defaultValue={order?.type}
                             readOnly
-                            name="itemName"
+                            name="type"
                             className="input input-bordered w-full"
                         />
                     </div>

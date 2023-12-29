@@ -1,44 +1,95 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdOutlinePayment } from "react-icons/md";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import PropTypes from 'prop-types';
 
-
-const Checkout = ({selectedPayParcel}) => {
-   // console.log(selectedParcel);
+const Checkout = ({ parcel }) => {
+    // console.log(selectedParcel);
     const stripe = useStripe();
-    const elements =useElements();
+    const elements = useElements();
+    const { user } = useContext(AuthContext);
+    const [transaction, setTransaction] = useState("")
     const [clientSecret, setClientSecret] = useState("");
+    const [allOrder, setAllOrder] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000/order')
+            .then(res => res.json())
+            .then(data => setAllOrder(data))
+    }, [allOrder])
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        if (selectedPayParcel && selectedPayParcel.price) {
+        if (parcel && parcel.price) {
             fetch("http://localhost:5000/create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ price: parseInt(selectedPayParcel.price) }),
+                body: JSON.stringify({ price: parseInt(parcel.price) }),
             })
                 .then((res) => res.json())
                 .then((data) => setClientSecret(data.clientSecret));
         }
-    }, [selectedPayParcel]);
+    }, [parcel]);
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!stripe || elements){
+        if (!stripe || !elements) {
             return
         }
         const card = elements.getElement(CardElement);
-        if(card == null){
-          return;
+        if (card == null) {
+            return;
         }
-        const {error,paymentMethod} = await stripe.createPaymentMethod({
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: "card",
             card
         })
-        if(error){
+        if (error) {
             console.log("Payment Error", error)
-        }else{
+        } else {
             console.log("Payment Method", paymentMethod)
         }
-
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    email: user?.email,
+                    name: user?.displayName
+                }
+            }
+        })
+        if (confirmError) {
+            console.log("confirmError");
+        } else {
+            console.log("payment intent", paymentIntent);
+            if (paymentIntent.status === "succeeded") {
+                console.log("Your Transaction ID:", paymentIntent.id);
+                setTransaction(paymentIntent.id);
+                console.log(parcel._id);
+                const deliveryMan = parcel.deliveryMan;
+                const deliveryDate = parcel.deliveryDate;
+                fetch(`http://localhost:5000/order/${parcel._id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ status: "paid", deliveryMan , deliveryDate })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.modifiedCount > 0) {
+                            const remaining = allOrder.filter(order => order._id !== parcel._id);
+                            const updated = allOrder.find(order => order._id === parcel._id);
+                            updated.status = 'paid';
+                            updated.deliverMan = parcel.deliveryMan;
+                            updated.deliveryDate = parcel.deliveryDate;
+                            const newOrder = [updated, ...remaining];
+                            setAllOrder(newOrder)
+                            toast('Successfully Paid');
+                        }
+                    });
+            }
+        }
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -61,8 +112,15 @@ const Checkout = ({selectedPayParcel}) => {
             <button type="submit" disabled={!stripe || !clientSecret} className="flex flex-row items-center btn btn-success mt-5">
                 Pay<MdOutlinePayment className="ml-4" />
             </button>
+            <ToastContainer></ToastContainer>
+            {transaction && <p className="text-red-500 ">Your TransactionID:{transaction}</p>}
         </form>
     );
 };
-
+Checkout.propTypes={
+    parcel: PropTypes.object
+ }
 export default Checkout;
+
+
+

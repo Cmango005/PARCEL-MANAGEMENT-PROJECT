@@ -37,18 +37,18 @@ const Home = () => {
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
-    const delivered = allOrder.filter(delivery => delivery.status === 'delivered')
+    const delivered = allOrder.filter(delivery => delivery.status === 'paid')
 
     const delivery = users.filter(user => user?.role === "Delivery-Man");
     //console.log(delivery.photoURL)
     const countDeliveredOrders = (deliveryMan) => {
-        return allOrder.filter(order => order.status === "delivered" && order.deliveryMan === deliveryMan.email).length;
+        return allOrder.filter(order => order.status === "paid" && order.deliveryMan === deliveryMan.email).length;
     };
     return (
         <div data-theme="business">
 
             <section className="" >
-                <Parallax blur={10} bgImage="https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg" bgImageAlt="the cat" strength={200}>
+                <Parallax blur={2} bgImage="https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg" bgImageAlt="the cat" strength={200}>
                     <div className=" flex items-center justify-around" >
 
                         <div className="max-w-md p-10">
@@ -81,7 +81,7 @@ const Home = () => {
                     <div className="container mx-auto mt-20">
                         <h2 className="text-3xl font-bold mb-8 text-white wel">Our Features</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {/* Feature 1: Real-Time Parcel Tracking */}
+
                             <div className="group [perspective:1000px]">
                                 <div className="h-96 rounded-lg  shadow-2xl relative transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(200deg)]">
                                     <div className="absolute inset-0 bg-yellow-400 border-2 flex flex-col items-center justify-center">
@@ -90,7 +90,7 @@ const Home = () => {
                                     </div>
 
                                     <div className=" bg-white absolute inset-0 border-2 rounded-lg text-center [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col items-center justify-center">
-                                        <p className="text-black">
+                                        <p className="text-black p-5 text-lg font-medium">
                                             Users can enjoy peace of mind with our real-time parcel tracking feature. Stay informed about the exact location of your package at every step of its journey, from pick-up to delivery.
                                         </p>
                                     </div>
@@ -104,7 +104,7 @@ const Home = () => {
                                     </div>
 
                                     <div className=" bg-white absolute inset-0 border-2 rounded-lg text-center [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col items-center justify-center">
-                                        <p className="text-black">
+                                        <p className="text-black text-lg font-medium">
                                             Emphasizing the safety of your parcels, our app offers secure and contactless delivery options. Our delivery personnel are trained to handle packages with care, and users can opt for contactless delivery to minimize physical interaction.
                                         </p>
                                     </div>
@@ -118,7 +118,7 @@ const Home = () => {
                                     </div>
 
                                     <div className=" bg-white absolute inset-0 border-2 rounded-lg text-center [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col items-center justify-center">
-                                        <p className="text-black">
+                                        <p className="text-black text-lg font-medium">
                                             Need your parcel delivered in a hurry? Choose our super-fast express delivery option. Experience the convenience of swift and timely deliveries for those urgent packages.
                                         </p>
                                     </div>
@@ -132,7 +132,7 @@ const Home = () => {
                                     </div>
 
                                     <div className=" bg-white absolute inset-0 border-2 rounded-lg text-center [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col items-center justify-center">
-                                        <p className="text-black">
+                                        <p className="text-black text-lg font-medium">
                                             Save time with our efficient parcel tracking and delivery options. Track and manage your parcels effortlessly.
                                         </p>
                                     </div>
@@ -146,43 +146,49 @@ const Home = () => {
                                     </div>
 
                                     <div className=" bg-white absolute inset-0 border-2 rounded-lg text-center [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col items-center justify-center">
-                                        <p className="text-black">
+                                        <p className="text-black text-lg font-medium">
                                             Tailor your delivery experience with customizable options. Choose delivery preferences that suit your needs.
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
-                    <div className="flex flex-col md:flex-row lg:flex-row border-2 border-yellow-400 top-0 left-0 shadow-md self-end rounded-sm">
 
-                        <div className="stats shadow">
 
-                            <div className="stat place-items-center">
-                                <div className="stat-title">All Order</div>
-                                <div className="stat-value text-white"><CountUp end={allOrder.length} /></div>
-                                <div className="stat-desc">From January 1st to February 1st</div>
-                            </div>
+                </div>
+            </section>
+            <section className="min-h-screen flex flex-col space-y-20 justify-center items-center mb-10">
+            <iframe src="https://lottie.host/embed/e3c679e1-0f82-448e-a957-babc0393a16c/ttCrwahYdC.json"></iframe>
+                <div className="flex flex-col md:flex-row lg:flex-row border-2 border-yellow-400 w-3/6 shadow-md rounded-sm">
 
-                            <div className="stat place-items-center">
-                                <div className="stat-title">Total Delivered Items</div>
-                                <div className="stat-value text-white"><CountUp end={delivered.length} /></div>
-                                <div className="stat-desc text-secondary">↗︎ 40 (2%)</div>
-                            </div>
+                    <div className="stats shadow">
 
-                            <div className="stat place-items-center">
-                                <div className="stat-title">Users</div>
-                                <div className="stat-value text-white"><CountUp end={users.length} /></div>
-                                <div className="stat-desc">↘︎ 90 (14%)</div>
-                            </div>
+                        <div className="stat place-items-center">
+                            <div className="stat-title">All Order</div>
+                            <div className="stat-value text-white"><CountUp end={allOrder.length} /></div>
+                            <div className="stat-desc">From January 1st to February 1st</div>
+                        </div>
 
+                        <div className="stat place-items-center">
+                            <div className="stat-title">Total Delivered Items</div>
+                            <div className="stat-value text-white"><CountUp end={delivered.length} /></div>
+                            <div className="stat-desc text-secondary">↗︎ 40 (2%)</div>
+                        </div>
+
+                        <div className="stat place-items-center">
+                            <div className="stat-title">Users</div>
+                            <div className="stat-value text-white"><CountUp end={users.length} /></div>
+                            <div className="stat-desc">↘︎ 90 (14%)</div>
                         </div>
 
                     </div>
 
                 </div>
+                <iframe src="https://lottie.host/embed/e3c679e1-0f82-448e-a957-babc0393a16c/ttCrwahYdC.json"></iframe>
             </section>
+
             <section className="bg-gradient-to-b from-emerald-200 to-emerald-500 text-white py-20">
                 <div className="container mx-auto text-center">
                     <h2 className="text-4xl font-bold mb-1">Experience the Future of Parcel Management</h2>
@@ -192,6 +198,56 @@ const Home = () => {
                     <button className="bg-yellow-400 text-blue-900 py-2 px-6 rounded-full text-lg font-bold hover:bg-yellow-500 transition duration-300">
                         Get Started
                     </button>
+                </div>
+            </section>
+            <section className="py-16">
+                <div className="container mx-auto">
+                    <h2 className="text-4xl font-bold mb-8 text-center text-white">Choose Your Parcel Management Plan</h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+
+                        <div className="bg-white p-8 rounded-md shadow-md">
+                            <h3 className="text-xl font-bold mb-4 text-gray-800">Basic Plan</h3>
+                            <p className="text-gray-600 mb-4">
+                                Ideal for occasional senders. Enjoy essential parcel tracking features with this cost-effective plan.
+                            </p>
+                            <ul className="list-disc text-gray-600 pl-6">
+                                <li>Real-Time Tracking</li>
+                                <li>Contactless Delivery</li>
+                                <li>Standard Delivery Time</li>
+                            </ul>
+                            <p className="text-gray-800 font-bold mt-4">$9.99/month</p>
+                        </div>
+
+                        <div className="bg-white p-8 rounded-md shadow-md">
+                            <h3 className="text-xl font-bold mb-4 text-gray-800">Premium Plan</h3>
+                            <p className="text-gray-600 mb-4">
+                                For regular users who want additional features. Unlock express delivery options and more with the Premium Plan.
+                            </p>
+                            <ul className="list-disc text-gray-600 pl-6">
+                                <li>Real-Time Tracking</li>
+                                <li>Contactless Delivery</li>
+                                <li>Express Delivery Option</li>
+                                <li>Customizable Preferences</li>
+                            </ul>
+                            <p className="text-gray-800 font-bold mt-4">$19.99/month</p>
+                        </div>
+
+                        <div className="bg-white p-8 rounded-md shadow-md">
+                            <h3 className="text-xl font-bold mb-4 text-gray-800">Business Plan</h3>
+                            <p className="text-gray-600 mb-4">
+                                Tailored for businesses with high parcel volumes. Get advanced tracking, priority support, and more.
+                            </p>
+                            <ul className="list-disc text-gray-600 pl-6">
+                                <li>Real-Time Tracking</li>
+                                <li>Contactless Delivery</li>
+                                <li>Express Delivery Option</li>
+                                <li>Customizable Preferences</li>
+                                <li>Priority Customer Support</li>
+                            </ul>
+                            <p className="text-gray-800 font-bold mt-4">Contact for Pricing</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 

@@ -7,7 +7,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css"
-import Navbar from "../Navbar/Navbar";
+// import Navbar from "../Navbar/Navbar";
 import login from "../../../../public/login.json"
 import Lottie from "lottie-react";
 
@@ -78,11 +78,11 @@ const Login = () => {
             <section className="hero bg-base-200 " style={{ backgroundImage: "url('https://i.ibb.co/ns4md2T/15-Bootstrap-login-forms32.webp')" }}>
 
 
-                <div className="flex items-center justify-between space-x-28 p-5 mt-14">
+                <div className="flex items-center justify-between  space-x-28 p-5 mt-14">
 
 
 
-                    <div className="flex flex-col items-center justify-center login-form  w-3/5 p-10  inset-0 h-screen bg-transparent backdrop-blur">
+                    <div className="flex flex-col items-center justify-center login-form  w-3/5 p-5  inset-0 h-screen border bg-transparent backdrop-blur shadow-2xl">
                         <p className="text-center wel text-xl font-bold text-white">Welcome To PandaParcel</p>
                         <form onSubmit={handleLogin} >
                             <div className="mb-4">
@@ -104,7 +104,7 @@ const Login = () => {
                                 />
                             </div>
                             <div className="flex items-center justify-between">
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                <button className="bg-cyan-300 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                                     Login
                                 </button>
                             </div>
@@ -115,11 +115,14 @@ const Login = () => {
                             <p className="text-white font-semibold">
                                 Don't have an account? Register Now{' '} <br />
                                 <NavLink to="/registration">
-                                    <button className="btn btn-outline btn-info mt-2">Registration</button>
+                                    <button className="btn btn-outline w-full btn-info mt-2 hover:bg-gradient-to-r hover:from-white hover:via-white hover:to-transparent">
+                                        Registration
+                                    </button>
+
                                 </NavLink>
                             </p>
                             <p className="text-center mb-1 p-1 text-white">OR Sign Up With</p>
-                            <button onClick={handleSignInGoogle} className="btn btn-accent text-white mb-3 bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">
+                            <button onClick={handleSignInGoogle} className="btn btn-accent w-full text-white mb-3 bg-cyan-300 hover:bg-cyan-700 px-4 py-2 rounded">
                                 GOOGLE <FcGoogle />
                             </button>
                         </div>
@@ -130,12 +133,11 @@ const Login = () => {
 
                     <div>
                         <p className="font-bold text-3xl text-white wel">Login now...</p>
-                        <Lottie animationData={login} className="h-96"></Lottie>
+                        <Lottie animationData={login} className="h-min"></Lottie>
                     </div>
                 </div>
 
 
-                <Navbar></Navbar>
             </section>
 
         </div>

@@ -61,8 +61,8 @@ const Navbar = () => {
                                             aria-orientation="vertical"
                                             aria-labelledby="dropdown-menu-button"
                                         >
-                                            <h3 className="text-center text-slate-100 text-lg font-semibold flex">{user.displayName}<span className=" text-3xl text-center lg:hidden"><NavLink to="/notification"><IoIosNotifications /></NavLink></span></h3>
-                                            <h3 className="text-center text-slate-100 text-lg font-semibold">{user.email}</h3>
+                                            <h3 className="text-center text-red-400 text-lg font-semibold flex">{user.displayName}<span className=" text-3xl text-center lg:hidden"><NavLink to="/notification"><IoIosNotifications /></NavLink></span></h3>
+                                            <h3 className="text-center text-red-400 text-lg font-semibold">{user.email}</h3>
                                             <div className="lg:hidden"><NavLink to="/"><h3 className=" text-xl unique-button  mt-3 text-white font-extrabold text-center">Home</h3></NavLink></div>
                                             <NavLink to="/dashboard"><button className="text-xl font-extrabold unique-button mb-3">Dashboard</button></NavLink>
                                             <button onClick={handleSignOut} className="advanced-button flex">LogOut <span className="mt-1"><FiLogOut></FiLogOut></span></button>

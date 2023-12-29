@@ -91,7 +91,7 @@ const AllParcel = () => {
                             <td className="py-2">{parcel.status}</td>
                             <td className="py-2">
                                 {
-                                    parcel.status === 'delivered' || parcel.status === 'on the way' ? <><button disabled className="">Already Managed</button></> :
+                                    parcel.status === 'delivered' || parcel.status === 'on the way' || parcel.status === "paid" ? <><button disabled className="">Already Managed</button></> :
                                         <>
                                                 <label htmlFor="my_modal_7" onClick={() => handleManageParcel(parcel)} className="bg-blue-500 btn text-white px-4 py-2 rounded">Manage</label>
                                                 {/* Put this part before </body> tag */}

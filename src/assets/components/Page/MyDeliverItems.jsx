@@ -72,7 +72,7 @@ const MyDeliverItems = () => {
                             <td>{parcel.parcelDeliveryAddress}</td>
                             <td>
                                 {
-                                    parcel.status === "delivered" ? <><button disabled className="">Already Delivered</button></> : <><button
+                                    parcel.status === "delivered" || parcel.status === "paid"? <><button disabled className="">Already Delivered</button></> : <><button
                                         onClick={() => handleDeliver(parcel._id, parcel.deliveryDate, parcel.deliveryMan)}
                                         className="bg-green-500 text-white px-4 py-2 rounded"
                                     >
@@ -97,7 +97,7 @@ const MyDeliverItems = () => {
                                                     style={{ width: 600, height: 400 }}
                                                     mapStyle="mapbox://styles/mapbox/streets-v12"
                                                 >
-                                                    {!isNaN(parseFloat(selectedParcel.deliveryAddressLongitude)) && !isNaN(parseFloat(selectedParcel.deliveryAddressLatitude)) && (
+                                                    {parseFloat(selectedParcel.deliveryAddressLongitude) && parseFloat(selectedParcel.deliveryAddressLatitude) && (
                                                         <Marker
                                                             longitude={parseFloat(selectedParcel.deliveryAddressLongitude)}
                                                             latitude={parseFloat(selectedParcel.deliveryAddressLatitude)}
