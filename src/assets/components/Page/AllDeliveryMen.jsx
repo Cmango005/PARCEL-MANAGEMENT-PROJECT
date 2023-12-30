@@ -32,7 +32,7 @@ const AllDeliveryMen = () => {
       .then(data => setAllOrder(data));
     },[])
     const countDeliveredOrders = (deliveryMan) => {
-      return allOrder.filter(order => order.status === "delivered" && order.deliveryMan === deliveryMan.email).length;
+      return allOrder.filter(order => order.status === "delivered" || order.status === "paid" && order.deliveryMan === deliveryMan.email).length;
     };
 
     return (

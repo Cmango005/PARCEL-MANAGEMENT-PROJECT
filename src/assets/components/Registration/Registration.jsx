@@ -7,7 +7,6 @@ import { updateProfile } from "firebase/auth";
 import "./Registration.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from "../Navbar/Navbar";
 const Registration = () => {
     
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -48,10 +47,10 @@ const Registration = () => {
     }
     return (
         <div className="hero min-h-screen mt-28 bg-base-200">
-            <div className="hero-content flex-col lg:flex-row-reverse">
+            <div className="hero-content flex-col lg:flex-row space-x-60">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Sign up now!</h1>
-                    <iframe src="https://lottie.host/embed/ba766bed-f707-45f5-9f95-55c02ec2a583/7NYsHptgLu.json" className="min-h-screen"></iframe>
+                    <iframe src="https://lottie.host/embed/ba766bed-f707-45f5-9f95-55c02ec2a583/7NYsHptgLu.json" className="h-96"></iframe>
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl p-3 bg-base-100">
                     <form onSubmit={handleSubmit(onSubmit)} className="card-body">
@@ -108,7 +107,7 @@ const Registration = () => {
                     <p className="ml-2">Already have an account <Link to="/login"><span className="text-indigo-700">Login</span></Link></p>
                 </div>
             </div>
-            <Navbar></Navbar>
+            
         </div>
     );
 };

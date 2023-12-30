@@ -41,11 +41,11 @@ const MyItems = () => {
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
- 
+
     const [selectedParcel, setSelectedParcel] = useState('');
     const [review, setReview] = useState('');
     const handleParcelReview = (parcel) => {
-        
+
         setSelectedParcel(parcel);
     };
     const [isReviewDone, setIsReviewDone] = useState(false);
@@ -73,11 +73,14 @@ const MyItems = () => {
                     toast('Thanks for your valuable review');
                 }
             });
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     };
 
 
     //const [isPaid, setIsPaid] = useState("");
-  
+
     // const handlePaySubmit = async(id)=>{
     //     fetch(`http://localhost:5000/order/${id}`, {
     //         method: 'PATCH',
@@ -155,7 +158,7 @@ const MyItems = () => {
                                 {
                                     parcel.status === "delivered" ? <> <div>
                                         <Link to={`/dashboard/payment/${parcel._id}`}><button className="btn btn-sm btn-neutral">Pay<FaMoneyBill className="ml-2" /></button></Link>
-                                       
+
                                     </div>
                                     </> : <></>
                                 }
@@ -165,61 +168,61 @@ const MyItems = () => {
                                             <label htmlFor="my_modal_7" onClick={() => handleParcelReview(parcel)} className="btn btn-sm btn-neutral">Review<FaStar className="" /></label>
                                             <input type="checkbox" id="my_modal_7" className="modal-toggle" />
                                             <div className="modal" role="dialog">
-                                                    <div className="modal-box">
-                                                        <h2 className="text-2xl font-bold mb-4">Give Review</h2>
-                                                        <label className="label">
-                                                            <span className="label-text">{user?.displayName} Photo</span>
-                                                        </label>
-                                                        <img
-                                                            readOnly
-                                                            src={user?.photoURL}
-                                                            className="w-32 h-32 rounded-full mb-4"
-                                                        />
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Name"
-                                                            readOnly
-                                                            value={user?.photoURL}
-                                                            className="input input-bordered hidden w-full"
-                                                        />
-                                                        <label className="label">
-                                                            <span className="label-text">Name</span>
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Name"
-                                                            readOnly
-                                                            value={user?.displayName}
-                                                            className="input input-bordered w-full"
-                                                        />
-                                                        <label className="label">
-                                                            <span className="label-text">Delivery Man</span>
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            readOnly
-                                                            value={selectedParcel.deliveryMan}
-                                                            className="input input-bordered w-full"
-                                                        />
-                                                        <label className='text-black'>Review</label>
-                                                        <textarea
-                                                            type="text"
-                                                            onChange={(e) => setReview(e.target.value)}
-                                                            value={review}
-                                                            className="textarea textarea-bordered h-24 w-full"
-                                                        ></textarea>
-                                                        {/* Submit Button */}
-                                                        <button onClick={() => handleReviewSubmit(selectedParcel._id, review, selectedParcel.deliveryMan, selectedParcel.deliveryDate, user.photoURL)} className={`btn btn-info ${isReviewDone ? 'cursor-not-allowed opacity-50' : ''}`}>
-                                                            Submit Review
-                                                            <MdOutlineBookmark className="ml-4" />
-                                                        </button>
-                                                        <ToastContainer></ToastContainer>
-                                                    </div>
-                                                    <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
+                                                <div className="modal-box">
+                                                    <h2 className="text-2xl font-bold mb-4">Give Review</h2>
+                                                    <label className="label">
+                                                        <span className="label-text">{user?.displayName} Photo</span>
+                                                    </label>
+                                                    <img
+                                                        readOnly
+                                                        src={user?.photoURL}
+                                                        className="w-32 h-32 rounded-full mb-4"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Name"
+                                                        readOnly
+                                                        value={user?.photoURL}
+                                                        className="input input-bordered hidden w-full"
+                                                    />
+                                                    <label className="label">
+                                                        <span className="label-text">Name</span>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Name"
+                                                        readOnly
+                                                        value={user?.displayName}
+                                                        className="input input-bordered w-full"
+                                                    />
+                                                    <label className="label">
+                                                        <span className="label-text">Delivery Man</span>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        readOnly
+                                                        value={selectedParcel.deliveryMan}
+                                                        className="input input-bordered w-full"
+                                                    />
+                                                    <label className='text-black'>Review</label>
+                                                    <textarea
+                                                        type="text"
+                                                        onChange={(e) => setReview(e.target.value)}
+                                                        value={review}
+                                                        className="textarea textarea-bordered h-24 w-full"
+                                                    ></textarea>
+                                                    {/* Submit Button */}
+                                                    <button onClick={() => handleReviewSubmit(selectedParcel._id, review, selectedParcel.deliveryMan, selectedParcel.deliveryDate, user.photoURL)} className={`btn btn-info ${isReviewDone ? 'cursor-not-allowed opacity-50' : ''}`}>
+                                                        Submit Review
+                                                        <MdOutlineBookmark className="ml-4" />
+                                                    </button>
+                                                    <ToastContainer></ToastContainer>
                                                 </div>
-                                            
+                                                <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
+                                            </div>
+
                                         </div></> : <></>
-                                    }</> 
+                                    }</>
                                 }
 
                             </td>

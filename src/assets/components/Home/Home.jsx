@@ -37,38 +37,67 @@ const Home = () => {
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
-    const delivered = allOrder.filter(delivery => delivery.status === 'paid')
+    const delivered = allOrder.filter(delivery => delivery.status === 'paid' || delivery.status === "delivered")
 
     const delivery = users.filter(user => user?.role === "Delivery-Man");
     //console.log(delivery.photoURL)
     const countDeliveredOrders = (deliveryMan) => {
-        return allOrder.filter(order => order.status === "paid" && order.deliveryMan === deliveryMan.email).length;
+        return allOrder.filter(order => order.status === "paid" || order.status === "delivered"  && order.deliveryMan === deliveryMan.email).length;
     };
+    const [searched, setSearch] = useState([])
+    
+    const handleSearch = e => {
+        e.preventDefault();
+        const searchText = e.target.searching.value;
+        console.log(searchText);
+        fetch(`http://localhost:5000/order?type=${searchText}`)
+        .then(res => res.json())
+        .then(data => setSearch(data))
+
+    }
+    
     return (
         <div data-theme="business">
 
             <section className="" >
                 <Parallax blur={2} bgImage="https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg" bgImageAlt="the cat" strength={200}>
-                    <div className=" flex items-center justify-around" >
+                    <div className=" flex items-center justify-around mt-20" >
 
-                        <div className="max-w-md p-10">
+                        <div className="max-w-md p-10 border-2 ml-24">
                             <h1 className="text-4xl font-extrabold mb-4 text-center h">Efficient Parcel Management</h1>
                             <p className="text-lg font-semibold mb-6 text-center text-black">Track, manage, and deliver with ease.</p>
                             <div className="flex justify-center">
                                 <div className="relative">
-                                    <input
-                                        type="text"
-                                        placeholder="Search parcels..."
-                                        className="py-2 px-4 rounded-full w-64 bg-white text-black md:w-96 focus:outline-none border"
-                                    />
-                                    <button className="absolute right-0 top-0 h-full px-4 py-2 bg-blue-500 rounded-r-full focus:outline-none">
-                                        <FaSearch />
-                                    </button>
+                                    <form onSubmit={handleSearch}>
+                                        <input
+                                            type="text"
+                                            placeholder="Search parcels..."
+                                            name="searching"
+                                            className="py-2 px-4 rounded-full w-64 bg-white text-black md:w-96 focus:outline-none border"
+                                        />
+                                        <label type="submit" htmlFor="my_modal_7" className="absolute right-0 top-0 flex justify-center h-full px-4 py-2 bg-blue-500 rounded-r-full focus:outline-none"><FaSearch /></label>
+                                        <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+                                            {
+                                                searched && <><div className="modal" role="dialog">
+                                                <div className="modal-box bg-white">
+                                               {
+                                                searched.map((item,index)=> <div key={index}>
+                                                     <h3 className="text-lg font-bold text-black">{item.type}</h3>
+                                                    <h3 className="text-lg font-bold text-black">{item.status}</h3>
+                                                </div>)
+                                               }
+                                                    
+                                                </div>
+                                                <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
+                                            </div></>
+                                            }
+                                        
+                                    </form>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="p-40">
+                        <div className="p-32">
                             <Lottie animationData={search}></Lottie>
                         </div>
                     </div>
@@ -79,7 +108,7 @@ const Home = () => {
             <section className="p-5">
                 <div className="flex flex-col items-center space-y-10">
                     <div className="container mx-auto mt-20">
-                        <h2 className="text-3xl font-bold mb-8 text-white wel">Our Features</h2>
+                        <h2 className="text-3xl font-bold mb-8 text-white text-center">Our Features</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
                             <div className="group [perspective:1000px]">
@@ -160,8 +189,8 @@ const Home = () => {
                 </div>
             </section>
             <section className="min-h-screen flex flex-col space-y-20 justify-center items-center mb-10">
-            <iframe src="https://lottie.host/embed/e3c679e1-0f82-448e-a957-babc0393a16c/ttCrwahYdC.json"></iframe>
-                <div className="flex flex-col md:flex-row lg:flex-row border-2 border-yellow-400 w-3/6 shadow-md rounded-sm">
+                <iframe src="https://lottie.host/embed/e3c679e1-0f82-448e-a957-babc0393a16c/ttCrwahYdC.json"></iframe>
+                <div className="flex flex-col md:flex-row lg:flex-row border-2 shadow-md rounded-sm">
 
                     <div className="stats shadow">
 
@@ -253,7 +282,7 @@ const Home = () => {
 
             <section className="mt-20">
                 <div className="container mx-auto mt-8">
-                    <h2 className="text-4xl font-bold mb-4 wel text-white">Top 5 Delivery Men</h2>
+                    <h2 className="text-4xl font-bold mb-4 text-center text-white">Top 5 Delivery Men</h2>
                     <div className="">
                         <Swiper
                             spaceBetween={30}
