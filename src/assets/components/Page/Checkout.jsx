@@ -11,18 +11,19 @@ const Checkout = ({ parcel }) => {
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useContext(AuthContext);
+    const [isPaid, setPaid] = useState(false)
     const [transaction, setTransaction] = useState("")
     const [clientSecret, setClientSecret] = useState("");
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/order')
+        fetch('https://parcel-management-server-steel.vercel.app/order')
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
         if (parcel && parcel.price) {
-            fetch("http://localhost:5000/create-payment-intent", {
+            fetch("https://parcel-management-server-steel.vercel.app/create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ price: parseInt(parcel.price) }),
@@ -33,6 +34,7 @@ const Checkout = ({ parcel }) => {
     }, [parcel]);
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setPaid(true)
         if (!stripe || !elements) {
             return
         }
@@ -68,12 +70,12 @@ const Checkout = ({ parcel }) => {
                 console.log(parcel._id);
                 const deliveryMan = parcel.deliveryMan;
                 const deliveryDate = parcel.deliveryDate;
-                fetch(`http://localhost:5000/order/${parcel._id}`, {
+                fetch(`https://parcel-management-server-steel.vercel.app/order/${parcel._id}`, {
                     method: 'PATCH',
                     headers: {
                         'content-type': 'application/json'
                     },
-                    body: JSON.stringify({ status: "paid", deliveryMan , deliveryDate })
+                    body: JSON.stringify({ status: "paid", deliveryMan, deliveryDate })
                 })
                     .then(res => res.json())
                     .then(data => {
@@ -92,34 +94,37 @@ const Checkout = ({ parcel }) => {
         }
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <CardElement
-                options={{
-                    style: {
-                        base: {
-                            fontSize: '16px',
-                            color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
+        <div className="p-10 space-y-10">
+            <p className="text-center text-2xl font-bold">Please Pay Your Bill</p>
+            <form onSubmit={handleSubmit}>
+                <CardElement
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: '16px',
+                                color: '#424770',
+                                '::placeholder': {
+                                    color: '#aab7c4',
+                                },
+                            },
+                            invalid: {
+                                color: '#9e2146',
                             },
                         },
-                        invalid: {
-                            color: '#9e2146',
-                        },
-                    },
-                }}
-            />
-            <button type="submit" disabled={!stripe || !clientSecret} className="flex flex-row items-center btn btn-success mt-5">
-                Pay<MdOutlinePayment className="ml-4" />
-            </button>
-            <ToastContainer></ToastContainer>
-            {transaction && <p className="text-red-500 ">Your TransactionID:{transaction}</p>}
-        </form>
+                    }}
+                />
+                <button type="submit" disabled={!stripe || !clientSecret || isPaid} className={`flex flex-row items-center btn btn-success mt-5 text-white px-4 py-2 rounded ${isPaid ? 'cursor-not-allowed opacity-50' : ''}`} >
+                    Pay<MdOutlinePayment className="ml-4" />
+                </button>
+                <ToastContainer></ToastContainer>
+                {transaction && <p className="text-red-500 ">Your TransactionID:{transaction}</p>}
+            </form>
+        </div>
     );
 };
-Checkout.propTypes={
+Checkout.propTypes = {
     parcel: PropTypes.object
- }
+}
 export default Checkout;
 
 

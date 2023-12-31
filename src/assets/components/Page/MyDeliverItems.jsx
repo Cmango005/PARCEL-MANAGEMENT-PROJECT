@@ -10,13 +10,18 @@ const MyDeliverItems = () => {
 
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/order')
+        fetch('https://parcel-management-server-steel.vercel.app/order')
             .then(res => res.json())
-            .then(data => setAllOrder(data))
+            .then(data => {const sortedData = data.sort((a, b) => {
+                const statusOrder = ["pending", "on the way", "delivered", "paid"];
+                return statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status);
+            });
+            setAllOrder(sortedData)
+        })
     }, [allOrder])
     const myDelivery = allOrder.filter(my => my.deliveryMan === user?.email);
     const handleDeliver = async (id, deliveryDate, deliveryMan) => {
-        fetch(`http://localhost:5000/order/${id}`, {
+        fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

@@ -19,13 +19,13 @@ const Profile = () => {
         console.log('Selected Profile Image:', profileImage);
     };
     return (
-        <div className="h-5/6 mx-auto flex items-center  ">
-            <div className="w-2/5 mx-auto p-6 rounded-md shadow-md bg-white">
-                <div className="mb-4 text-center">
+        <div className="h-5/6 mx-auto flex justify-center items-center  ">
+            <div className="w-2/5 mx-auto p-6 rounded-md  " >
+                <div className=" text-center">
                     <img
                         src={user?.photoURL}
                         alt="Profile"
-                        className="w-32 h-32 rounded-full mx-auto mb-4"
+                        className="w-32 h-32 rounded-lg mx-auto mb-4"
                     />
                     <input
                         type="file"

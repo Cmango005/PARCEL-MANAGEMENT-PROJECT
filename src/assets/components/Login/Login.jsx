@@ -48,7 +48,7 @@ const Login = () => {
                     name: Result.user.displayName,
                     email: Result.user.email
                 }
-                fetch('http://localhost:5000/users', {
+                fetch('https://parcel-management-server-steel.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

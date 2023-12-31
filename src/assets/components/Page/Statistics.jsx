@@ -14,10 +14,11 @@ const Statistics = () => {
     const [allOrder, setAllOrder] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/order")
+        fetch("https://parcel-management-server-steel.vercel.app/order")
             .then((res) => res.json())
             .then((data) => setAllOrder(data));
     }, [allOrder]);
+    const money = allOrder.reduce((sum, order) => sum + (order.price || 0), 0);
     const delivered = allOrder.filter(delivery => delivery.status === 'paid' || delivery.status === "delivered")
     const data2 = [
         { name: "All Order", value: allOrder.length },
@@ -46,6 +47,7 @@ const Statistics = () => {
     return (
         <div>
             <p className="text-center text-2xl font-bold">Stats</p>
+        <p className="text-2xl font-bold">Total Cash:{money}</p>
             <ResponsiveContainer width="100%" height={600}>
                 <PieChart>
                     <Pie
