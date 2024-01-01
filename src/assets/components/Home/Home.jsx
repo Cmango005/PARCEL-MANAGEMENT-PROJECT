@@ -41,19 +41,20 @@ const Home = () => {
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
-    const delivered = allOrder.filter(delivery => delivery.status === 'paid' || delivery.status === "delivered")
-
+    const delivered = allOrder.filter(delivery => delivery.status === 'paid' || delivery.status === "delivered");
     const delivery = users.filter(user => user?.role === "Delivery-Man");
     //console.log(delivery.photoURL)
     const countDeliveredOrders = (deliveryMan) => {
         return allOrder.filter(order => order.status === "paid" && order.deliveryMan === deliveryMan.email).length;
     };
     const countDeliveredRate = (deliveryMan) => {
-        const ratings = allOrder
-            .filter((order) => order.status === "paid" && order.deliveryMan === deliveryMan.email)
-            .map((order) => order.rate);
-        const averageRating = ratings.reduce((total, rating) => total + rating, 0) / ratings.length;
-        return averageRating;
+        const ratings = allOrder.filter((order) => order.status === "paid" && order.deliveryMan === deliveryMan.email);
+        const rate = ratings.reduce((sum,item) => sum + (parseInt(item.rate)),0)
+        //console.log(rate);
+        const total = Math.ceil(rate/ratings.length);
+        return total;
+       
+        
     };
     const [searched, setSearch] = useState("")
     const [result, setResult] = useState([])
@@ -64,7 +65,7 @@ const Home = () => {
     const handleSearchClick = () => {
 
         const filtered = allOrder.filter((item) =>
-            item.type.toLowerCase().includes(searched.toLowerCase())
+            item.type.toLowerCase().includes(searched.toLowerCase())  && item.email === user?.email
         );
         console.log(filtered);
         setResult(filtered);
@@ -373,7 +374,7 @@ const Home = () => {
 
                                             className="h-32 w-56 mb-4"
                                         />
-                                        <div>
+                                        <div className="flex flex-col items-center justify-center">
                                             <h3 className="text-xl font-bold mb-2 text-black">{deliveryMan.name}</h3>
                                             <h3 className="text-xl font-bold mb-2 text-black">{deliveryMan.email}</h3>
                                             <p className="text-gray-600 mb-4 text-base font-bold">

@@ -1,5 +1,8 @@
 
+import { Rating } from "@smastrom/react-rating";
+import '@smastrom/react-rating/style.css'
 import { useEffect, useState } from "react";
+
 
 
 const AllDeliveryMen = () => {
@@ -34,7 +37,15 @@ const AllDeliveryMen = () => {
   const countDeliveredOrders = (deliveryMan) => {
     return allOrder.filter(order => order.status === "delivered" || order.status === "paid" && order.deliveryMan === deliveryMan.email).length;
   };
+  const countDeliveredRate = (deliveryMan) => {
+    const ratings = allOrder.filter((order) => order.status === "paid" && order.deliveryMan === deliveryMan.email);
+    const rate = ratings.reduce((sum, item) => sum + (parseInt(item.rate)), 0)
+    //console.log(rate);
+    const total = Math.ceil(rate / ratings.length);
+    return total;
 
+
+  };
   return (
     <div className="overflow-x-auto mt-8 min-h-screen p-10">
       <h2 className="text-2xl font-bold mb-4">All Delivery Men</h2>
@@ -45,7 +56,7 @@ const AllDeliveryMen = () => {
             <th className="py-2">Delivery Man Name</th>
             <th className="py-2">Phone Number</th>
             <th className="py-2">Number of Parcels Delivered</th>
-            <th className="py-2">Average Review</th>
+            <th className="py-2">Average Rating</th>
           </tr>
         </thead>
         <tbody>
@@ -59,7 +70,16 @@ const AllDeliveryMen = () => {
                 </div>
               ))}
             </td>
+            <td>
+              {
+                delivery.map((man ,index)=> <Rating key={index}
+                style={{ maxWidth: 120 }}
+                value={countDeliveredRate(man)}
+                readOnly
 
+              />)
+              }
+            </td>
           </tr>
         </tbody>
       </table>

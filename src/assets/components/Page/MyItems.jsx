@@ -78,7 +78,7 @@ const MyItems = () => {
                     updated.deliveryDate = deliveryDate;
                     updated.review = review;
                     updated.photo = photo;
-                    updated.rate = rate
+                    updated.rate = parseInt(rate)
                     const newOrder = [updated, ...remaining];
                     setAllOrder(newOrder);
                     toast('Thanks for your valuable review');
@@ -183,7 +183,7 @@ const MyItems = () => {
                                                     <label htmlFor="my_modal_7" onClick={() => handleParcelReview(parcel)} className="btn btn-sm btn-neutral">Review<FaStar className="" /></label>
                                                     <input type="checkbox" id="my_modal_7" className="modal-toggle" />
                                                     <div className="modal" role="dialog">
-                                                        <div className="modal-box">
+                                                        <div className="modal-box space-y-2">
                                                             <h2 className="text-2xl font-bold mb-4">Give Review</h2>
                                                             <label className="label">
                                                                 <span className="label-text">{user?.displayName} Photo</span>
@@ -220,7 +220,7 @@ const MyItems = () => {
                                                                 className="input input-bordered w-full"
                                                             />
                                                             <div className="flex flex-col">
-                                                            <label className="text-black">Give Rating</label>
+                                                            <label className="nt-2">Give Rating</label>
                                                             <div className="rating rating-md">
                                                                 <input type="radio" name="rating-7" value={1} onChange={(e) => setRating(e.target.value)} className="mask mask-star-2 bg-orange-400" />
                                                                 <input type="radio" name="rating-7" value={2} onChange={(e) => setRating(e.target.value)} className="mask mask-star-2 bg-orange-400" />
@@ -229,7 +229,7 @@ const MyItems = () => {
                                                                 <input type="radio" name="rating-7" value={5} onChange={(e) => setRating(e.target.value)} className="mask mask-star-2 bg-orange-400" />
                                                             </div>
                                                             </div>
-                                                            <label className='text-black'>Review</label>
+                                                            <label className='mt-2'>Review</label>
                                                             <textarea
                                                                 type="text"
                                                                 onChange={(e) => setReview(e.target.value)}
