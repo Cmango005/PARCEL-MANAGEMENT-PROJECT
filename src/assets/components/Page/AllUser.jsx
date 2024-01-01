@@ -7,13 +7,13 @@ import { useEffect, useState } from "react";
 const AllUser = () => {
     const [users, setUsers] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/users')
+        fetch('http://localhost:5000/users')
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [users])
     const deliveryMan = users.filter(delivery => delivery.role === 'Delivery-Man')
     const handleMakeAdmin = user => {
-        fetch(`https://parcel-management-server-steel.vercel.app/users/admin/${user._id}`, {
+        fetch(`http://localhost:5000/users/admin/${user._id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -30,7 +30,7 @@ const AllUser = () => {
     }
     const handleMakeDeliveryMan = user => {
 
-        fetch(`https://parcel-management-server-steel.vercel.app/users/delivery-man/${user._id}`, {
+        fetch(`http://localhost:5000/users/delivery-man/${user._id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -47,7 +47,7 @@ const AllUser = () => {
     }
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/order')
+        fetch('http://localhost:5000/order')
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])

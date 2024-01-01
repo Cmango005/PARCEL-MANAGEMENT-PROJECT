@@ -45,7 +45,7 @@ const Update = () => {
 
         }
 
-        fetch(`https://parcel-management-server-steel.vercel.app/order/${order._id}`, {
+        fetch(`http://localhost:5000/order/${order._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

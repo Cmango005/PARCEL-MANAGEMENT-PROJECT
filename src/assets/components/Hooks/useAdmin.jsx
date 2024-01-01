@@ -9,9 +9,9 @@ const useAdmin = () => {
     queryKey: [user?.email, 'isAdmin'],
     queryFn: async () => {
       try {
-        const response = await fetch(`https://parcel-management-server-steel.vercel.app/users/admin/${user?.email}`);
+        const response = await fetch(`http://localhost:5000/users/admin/${user?.email}`);
         if (!response.ok) {
-          throw new Error(`Error fetching data from https://parcel-management-server-steel.vercel.app/users/admin/${user?.email}`);
+          throw new Error(`Error fetching data from http://localhost:5000/users/admin/${user?.email}`);
         }
 
         const data = await response.json();

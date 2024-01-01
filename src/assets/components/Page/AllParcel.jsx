@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AllParcel = () => {
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/order')
+        fetch('http://localhost:5000/order')
             .then(res => res.json())
             .then(data => {
                 const sortedData = data.sort((a, b) => {
@@ -18,7 +18,7 @@ const AllParcel = () => {
     }, [allOrder])
     const [users, setUsers] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/users')
+        fetch('http://localhost:5000/users')
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [users])
@@ -44,7 +44,7 @@ const AllParcel = () => {
     const handleAssignDelivery = async (id) => {
 
         setIsAssigned(true);
-        fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
+        fetch(`http://localhost:5000/order/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -69,10 +69,10 @@ const AllParcel = () => {
 
     };
     return (
-        <div className="container mx-auto mt-8 p-2">
+        <div className="overflow-x-auto mt-8 p-2 min-h-screen">
             <h2 className="text-2xl font-bold mb-4">All Parcels</h2>
 
-            <table className="min-w-full bg-white ">
+            <table className="table table-2xl ">
                 <thead>
                     <tr>
                         <th className="py-2">Users Name</th>
@@ -87,7 +87,7 @@ const AllParcel = () => {
                 <tbody>
                     {allOrder.map((parcel, index) => (
 
-                        <tr key={index} className="text-black ">
+                        <tr key={index} className="text-white ">
 
                             <td className="py-2 ">{parcel.userName}</td>
                             <td className="py-2">{parcel.phoneNumber}</td>

@@ -16,14 +16,14 @@ const Checkout = ({ parcel }) => {
     const [clientSecret, setClientSecret] = useState("");
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/order')
+        fetch('http://localhost:5000/order')
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
         if (parcel && parcel.price) {
-            fetch("https://parcel-management-server-steel.vercel.app/create-payment-intent", {
+            fetch("http://localhost:5000/create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ price: parseInt(parcel.price) }),
@@ -70,7 +70,7 @@ const Checkout = ({ parcel }) => {
                 console.log(parcel._id);
                 const deliveryMan = parcel.deliveryMan;
                 const deliveryDate = parcel.deliveryDate;
-                fetch(`https://parcel-management-server-steel.vercel.app/order/${parcel._id}`, {
+                fetch(`http://localhost:5000/order/${parcel._id}`, {
                     method: 'PATCH',
                     headers: {
                         'content-type': 'application/json'
@@ -87,7 +87,7 @@ const Checkout = ({ parcel }) => {
                             updated.deliveryDate = parcel.deliveryDate;
                             const newOrder = [updated, ...remaining];
                             setAllOrder(newOrder)
-                            toast('Successfully Paid');
+                            toast.success('Successfully Paid');
                         }
                     });
             }
@@ -102,9 +102,9 @@ const Checkout = ({ parcel }) => {
                         style: {
                             base: {
                                 fontSize: '16px',
-                                color: '#424770',
+                                color: '#fff',
                                 '::placeholder': {
-                                    color: '#aab7c4',
+                                    color: '#fff',
                                 },
                             },
                             invalid: {
@@ -113,7 +113,7 @@ const Checkout = ({ parcel }) => {
                         },
                     }}
                 />
-                <button type="submit" disabled={!stripe || !clientSecret || isPaid} className={`flex flex-row items-center btn btn-success mt-5 text-white px-4 py-2 rounded ${isPaid ? 'cursor-not-allowed opacity-50' : ''}`} >
+                <button type="submit" disabled={!stripe || !clientSecret || isPaid} className={`flex flex-row items-center btn btn-success mt-5 px-4 py-2 rounded ${isPaid ? 'cursor-not-allowed opacity-50' : ''}`} >
                     Pay<MdOutlinePayment className="ml-4" />
                 </button>
                 <ToastContainer></ToastContainer>

@@ -14,7 +14,7 @@ const Statistics = () => {
     const [allOrder, setAllOrder] = useState([]);
 
     useEffect(() => {
-        fetch("https://parcel-management-server-steel.vercel.app/order")
+        fetch("http://localhost:5000/order")
             .then((res) => res.json())
             .then((data) => setAllOrder(data));
     }, [allOrder]);
@@ -45,9 +45,9 @@ const Statistics = () => {
     };
 
     return (
-        <div>
+        <div className="p-10">
             <p className="text-center text-2xl font-bold">Stats</p>
-        <p className="text-2xl font-bold">Total Cash:{money}</p>
+        <p className="text-2xl font-bold">Total Revenue:{money}</p>
             <ResponsiveContainer width="100%" height={600}>
                 <PieChart>
                     <Pie

@@ -55,7 +55,7 @@ const Book = () => {
             status
         };
         console.log(bookItem);
-        fetch('https://parcel-management-server-steel.vercel.app/order', {
+        fetch('http://localhost:5000/order', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -78,7 +78,7 @@ const Book = () => {
             <form onSubmit={onSubmit}>
 
                 <div className="flex gap-5">
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Name</span>
                         </label>
@@ -91,7 +91,7 @@ const Book = () => {
                         />
                     </div>
 
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
@@ -105,7 +105,7 @@ const Book = () => {
                     </div>
                 </div>
 
-                <div className="form-control w-full my-6">
+                <div className="form-control w-full my-3">
                     <label className="label">
                         <span className="label-text">Parcel Type</span>
                     </label>
@@ -117,7 +117,7 @@ const Book = () => {
                     ></textarea>
                 </div>
                 <div className="flex gap-5">
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Parcel Weight (kg)</span>
                         </label>
@@ -131,7 +131,7 @@ const Book = () => {
                             className="input input-bordered w-full"
                         />
                     </div>
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Price</span>
                         </label>
@@ -145,7 +145,7 @@ const Book = () => {
                 </div>
 
                 <div className="flex gap-5">
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Your Phone Number</span>
                         </label>
@@ -157,7 +157,7 @@ const Book = () => {
                             className="input input-bordered w-full"
                         />
                     </div>
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Requested Delivery Date</span>
                         </label>
@@ -168,7 +168,7 @@ const Book = () => {
                             className="input input-bordered w-full"
                         />
                     </div>
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Receivers Name</span>
                         </label>
@@ -181,7 +181,7 @@ const Book = () => {
                         />
                     </div>
 
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Receivers Phone Number</span>
                         </label>
@@ -195,7 +195,7 @@ const Book = () => {
                     </div>
                 </div>
 
-                <div className="form-control w-full my-6">
+                <div className="form-control w-full my-3">
                     <label className="label">
                         <span className="label-text">Parcel Delivery Address</span>
                     </label>
@@ -208,7 +208,7 @@ const Book = () => {
                 </div>
 
                 <div className="flex gap-5">
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Delivery Address Latitude</span>
                         </label>
@@ -222,7 +222,7 @@ const Book = () => {
                             className="input input-bordered w-full"
                         />
                     </div>
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full my-3">
                         <label className="label">
                             <span className="label-text">Delivery Address Longitude</span>
                         </label>

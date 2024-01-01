@@ -10,7 +10,7 @@ const MyDeliverItems = () => {
 
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/order')
+        fetch('http://localhost:5000/order')
             .then(res => res.json())
             .then(data => {const sortedData = data.sort((a, b) => {
                 const statusOrder = ["pending", "on the way", "delivered", "paid"];
@@ -21,7 +21,7 @@ const MyDeliverItems = () => {
     }, [allOrder])
     const myDelivery = allOrder.filter(my => my.deliveryMan === user?.email);
     const handleDeliver = async (id, deliveryDate, deliveryMan) => {
-        fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
+        fetch(`http://localhost:5000/order/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -52,8 +52,8 @@ const MyDeliverItems = () => {
 
     };
     return (
-        <div className="p-1">
-            <table className="min-w-full divide-y divide-gray-200">
+        <div className="p-1 overflow-x-auto">
+            <table className="table table-xl divide-y divide-gray-200">
                 <thead>
                     <tr>
 
@@ -84,7 +84,7 @@ const MyDeliverItems = () => {
                                         Deliver
                                     </button>
                                         <ToastContainer />
-                                        <label htmlFor="my_modal_7" onClick={() => handleParcelLocation(parcel)} className="btn">See Location</label>
+                                        <label htmlFor="my_modal_7" onClick={() => handleParcelLocation(parcel)} className="btn btn-info">See Location</label>
 
                                         {/* Put this part before </body> tag */}
                                         <input type="checkbox" id="my_modal_7" className="modal-toggle" />
@@ -109,7 +109,7 @@ const MyDeliverItems = () => {
                                                             anchor="bottom"
                                                             
                                                         >
-                                                            <FaLocationPin size={30}/>
+                                                            <FaLocationPin className="text-orange-500" size={30}/>
                                                         </Marker>
                                                     )}
                                                 </Map>

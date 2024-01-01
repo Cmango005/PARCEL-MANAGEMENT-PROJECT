@@ -31,7 +31,7 @@ const MyItems = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`https://parcel-management-server-steel.vercel.app/order?email=${user?.email}`)
+        fetch(`http://localhost:5000/order?email=${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 const sortedData = data.sort((a, b) => {
@@ -46,7 +46,7 @@ const MyItems = () => {
 
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/order')
+        fetch('http://localhost:5000/order')
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
@@ -61,7 +61,7 @@ const MyItems = () => {
     const [isReviewDone, setIsReviewDone] = useState(false);
     const handleReviewSubmit = async (id, review, deliveryMan, deliveryDate, photo ,rate) => {
         setIsReviewDone(true);
-        fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
+        fetch(`http://localhost:5000/order/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -95,7 +95,7 @@ const MyItems = () => {
     //const [isPaid, setIsPaid] = useState("");
 
     // const handlePaySubmit = async(id)=>{
-    //     fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
+    //     fetch(`http://localhost:5000/order/${id}`, {
     //         method: 'PATCH',
     //         headers: {
     //             'content-type': 'application/json'
@@ -104,7 +104,7 @@ const MyItems = () => {
     //     })
     // }
     const handleCancel = (id) => {
-        fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
+        fetch(`http://localhost:5000/order/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -129,7 +129,7 @@ const MyItems = () => {
     return (
         <div className="overflow-x-auto">
             {
-                loading ? <><span className="loading loading-dots loading-lg"></span></> : <>
+                loading ? <><div className="flex justify-center"><span className="loading loading-dots loading-lg "></span></div></> : <>
                     <table className="table w-full">
                         <thead>
                             <tr>

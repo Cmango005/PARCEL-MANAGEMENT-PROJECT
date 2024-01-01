@@ -28,6 +28,9 @@ import MyReview from './assets/components/Page/MyReview';
 import Statistics from './assets/components/Page/Statistics';
 import Update from './assets/components/Page/Update';
 import Payment from './assets/components/Page/Payment';
+import PrivateRoute from './assets/components/Route/PrivateRoute';
+import AdminRoute from './assets/components/Admin/AdminRoute';
+import DeliverRoute from './assets/components/DeliveryRoute/DeliverRoute';
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -60,51 +63,51 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/book',
-        element: <Book></Book>
+        element: <PrivateRoute><Book></Book></PrivateRoute>
       },
       {
         path: '/dashboard/my-book',
-        element: <MyItems></MyItems>,
+        element: <PrivateRoute><MyItems></MyItems></PrivateRoute>,
         
       },
       {
         path: '/dashboard/profile',
-        element: <Profile></Profile>
+        element: <PrivateRoute><Profile></Profile></PrivateRoute>
       },
       {
         path: '/dashboard/parcels',
-        element: <AllParcel></AllParcel>
+        element: <AdminRoute><AllParcel></AllParcel></AdminRoute>
       },
       {
         path: '/dashboard/all-user',
-        element: <AllUser></AllUser>
+        element: <AdminRoute><AllUser></AllUser></AdminRoute>
       },
       {
         path: '/dashboard/delivery-men',
-        element: <AllDeliveryMen></AllDeliveryMen>
+        element: <AdminRoute><AllDeliveryMen></AllDeliveryMen></AdminRoute>
       },
       {
         path: '/dashboard/my-delivery',
-        element: <MyDeliverItems></MyDeliverItems>,
+        element: <DeliverRoute><MyDeliverItems></MyDeliverItems></DeliverRoute>,
         
       },
       {
         path: '/dashboard/my-review',
-        element: <MyReview></MyReview>
+        element: <DeliverRoute><MyReview></MyReview></DeliverRoute>
       },
       {
         path: '/dashboard/statistics',
-        element: <Statistics></Statistics>
+        element: <AdminRoute><Statistics></Statistics></AdminRoute>
       },
       {
         path:'/dashboard/update/:id',
-        element:<Update></Update>,
-        loader:({params})=> fetch(`https://parcel-management-server-steel.vercel.app/order/${params.id}`)
+        element:<PrivateRoute><Update></Update></PrivateRoute>,
+        loader:({params})=> fetch(`http://localhost:5000/order/${params.id}`)
       },
       {
         path:'/dashboard/payment/:id',
-        element:<Payment></Payment>,
-        loader:({params})=> fetch(`https://parcel-management-server-steel.vercel.app/order/${params.id}`)
+        element:<PrivateRoute><Payment></Payment></PrivateRoute>,
+        loader:({params})=> fetch(`http://localhost:5000/order/${params.id}`)
       }
     ]
   }

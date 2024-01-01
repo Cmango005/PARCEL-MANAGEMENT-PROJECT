@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const Menu = () => {
     const [menu, setMenu] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/dashboard/menu')
+        fetch('http://localhost:5000/dashboard/menu')
             .then(res => res.json())
             .then(data => {
                 const sortedMenu = data.sort((a, b) => a.name.localeCompare(b.name));

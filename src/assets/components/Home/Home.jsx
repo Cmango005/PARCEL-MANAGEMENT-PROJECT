@@ -7,7 +7,7 @@ import { BiBriefcase } from "react-icons/bi";
 // import Navbar from "../Navbar/Navbar";
 
 import Footer from "../Footer/Footer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CountUp from 'react-countup';
 import { Parallax } from "react-parallax";
 import search from "../../../../public/search.json"
@@ -24,18 +24,20 @@ import './Home.css';
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
+import { Rating } from "@smastrom/react-rating";
+import '@smastrom/react-rating/style.css'
+import { AuthContext } from "../../../Providers/AuthProvider";
 const Home = () => {
     const [users, setUsers] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/users')
+        fetch('http://localhost:5000/users')
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [users]);
     //console.log(users)
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('https://parcel-management-server-steel.vercel.app/order')
+        fetch('http://localhost:5000/order')
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
@@ -67,7 +69,7 @@ const Home = () => {
         console.log(filtered);
         setResult(filtered);
     };
-
+    const { user } = useContext(AuthContext);
     return (
         <div data-theme="business">
 
@@ -88,7 +90,9 @@ const Home = () => {
                                         onChange={handleChange}
                                         className="py-2 px-4 rounded-full w-64 bg-white text-black md:w-96 focus:outline-none border"
                                     />
-                                    <label onClick={handleSearchClick} htmlFor="my_modal_7" className="absolute right-0 top-0 flex justify-center h-full px-4 py-2 bg-blue-500 rounded-r-full focus:outline-none"><FaSearch /></label>
+                                    {
+                                        searched && user && <label onClick={handleSearchClick} htmlFor="my_modal_7" className="absolute right-0 top-0 flex justify-center h-full px-4 py-2 bg-blue-500 rounded-r-full focus:outline-none"><FaSearch /></label>
+                                    }
                                     <input type="checkbox" id="my_modal_7" className="modal-toggle" />
                                     <div className="modal" role="dialog">
                                         <div className="modal-box bg-white">
@@ -219,19 +223,19 @@ const Home = () => {
 
 
 
-                    <div className="border-2 p-3">
+                    <div className="border-2 border-yellow-300 p-3">
                         <p className="text-center">All Order</p>
                         <p className="text-center text-white"><CountUp end={allOrder.length} /></p>
                         <p className="text-center">From January 1st to February 1st</p>
                     </div>
 
-                    <div className="border-2 p-3">
+                    <div className="border-2 border-yellow-300 p-3">
                         <p className="text-center">Total Delivered Items</p>
                         <p className="text-center text-white"><CountUp end={delivered.length} /></p>
                         <p className="text-center text-secondary">↗︎ 40 (2%)</p>
                     </div>
 
-                    <div className="border-2 p-3">
+                    <div className="border-2 border-yellow-300 p-3">
                         <p className="text-center">Users</p>
                         <p className="text-center text-white"><CountUp end={users.length} /></p>
                         <p className="text-center">↘︎ 90 (14%)</p>
@@ -328,6 +332,12 @@ const Home = () => {
                                     <SwiperSlide key={index}>
                                         <div className="h-96 flex flex-col items-center p-10 space-y-10">
                                             <img src={item.photo} alt="" className="h-32 w-56" />
+                                            <Rating
+                                                style={{ maxWidth: 120 }}
+                                                value={item.rate}
+                                                readOnly
+
+                                            />
                                             <p className="text-xl font-bold text-black">Review: {item.review}</p>
                                         </div>
                                     </SwiperSlide>
@@ -370,11 +380,12 @@ const Home = () => {
                                                 Number of Parcels Delivered: {countDeliveredOrders(deliveryMan)}
 
                                             </p>
-                                            <div className="rating rating-md">
-                                                {Array.from({ length: Math.round(countDeliveredRate(deliveryMan)) }, (_, index) => (
-                                                    <input key={index} type="radio" name={`rating-${index}`} readOnly className="mask mask-star-2 bg-orange-400" />
-                                                ))}
-                                            </div>
+                                            <Rating
+                                                style={{ maxWidth: 120 }}
+                                                value={countDeliveredRate(deliveryMan)}
+                                                readOnly
+
+                                            />
                                         </div>
                                     </div>
 

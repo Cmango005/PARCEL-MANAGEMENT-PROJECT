@@ -21,7 +21,7 @@ const Registration = () => {
                     phone: data?.phoneNumber
                 }
                 
-                fetch('https://parcel-management-server-steel.vercel.app/users',{
+                fetch('http://localhost:5000/users',{
                     method: 'POST',
                     headers: {
                       'content-type': 'application/json'
