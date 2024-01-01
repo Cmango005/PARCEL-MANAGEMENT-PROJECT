@@ -31,7 +31,7 @@ const Registration = () => {
                 .then(res => res.json())
                 .then(data => {
                     if(data.insertedId){
-                        toast('user added successfully')
+                        toast.success('user added successfully')
                     }
                 })
                 reset();

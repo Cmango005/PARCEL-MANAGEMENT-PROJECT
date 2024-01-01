@@ -43,17 +43,17 @@ const Profile = () => {
                 </div>
                 {/* User Information */}
                 <div className="mb-4">
-                    <label className="block text-gray-600 text-sm font-bold mb-2">Name:</label>
-                    <span className="text-gray-800">{user?.displayName}</span>
+                    <label className="block text-white text-sm font-bold mb-2">Name:</label>
+                    <span className="text-white">{user?.displayName}</span>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-600 text-sm font-bold mb-2">Email:</label>
-                    <span className="text-gray-800">{user?.email}</span>
+                    <label className="block text-white text-sm font-bold mb-2">Email:</label>
+                    <span className="text-white">{user?.email}</span>
                 </div>
                 {/* Update Button */}
                 <button
                     onClick={handleUpdateProfile}
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    className="btn btn-success text-white px-4 py-2 rounded"
                 >
                     Update Profile
                 </button>

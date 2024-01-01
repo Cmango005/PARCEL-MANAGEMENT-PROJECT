@@ -27,7 +27,7 @@ const Login = () => {
             .then(result => {
                 console.log(result.user)
 
-                toast('Login successful')
+                toast.success('Login successful')
                 navigate(location?.state ? location.state : "/")
             })
             .catch(error => {
@@ -59,7 +59,7 @@ const Login = () => {
                     .then(data => {
 
                         if (data.insertedId) {
-                            toast('sign in with google successful')
+                            toast.success('sign in with google successful')
                         }
 
                     })
@@ -125,6 +125,7 @@ const Login = () => {
                             <button onClick={handleSignInGoogle} className="btn btn-accent w-full  mb-3 bg-cyan-300 hover:bg-cyan-700 px-4 py-2 rounded">
                                 GOOGLE <FcGoogle />
                             </button>
+                            <ToastContainer></ToastContainer>
                         </div>
 
 

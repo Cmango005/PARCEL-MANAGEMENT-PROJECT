@@ -49,12 +49,12 @@ const Home = () => {
     };
     const countDeliveredRate = (deliveryMan) => {
         const ratings = allOrder.filter((order) => order.status === "paid" && order.deliveryMan === deliveryMan.email);
-        const rate = ratings.reduce((sum,item) => sum + (parseInt(item.rate)),0)
+        const rate = ratings.reduce((sum, item) => sum + (parseInt(item.rate)), 0)
         //console.log(rate);
-        const total = Math.ceil(rate/ratings.length);
+        const total = Math.ceil(rate / ratings.length);
         return total;
-       
-        
+
+
     };
     const [searched, setSearch] = useState("")
     const [result, setResult] = useState([])
@@ -65,7 +65,7 @@ const Home = () => {
     const handleSearchClick = () => {
 
         const filtered = allOrder.filter((item) =>
-            item.type.toLowerCase().includes(searched.toLowerCase())  && item.email === user?.email
+            item.type.toLowerCase().includes(searched.toLowerCase()) && item.email === user?.email
         );
         console.log(filtered);
         setResult(filtered);
@@ -75,7 +75,7 @@ const Home = () => {
         <div data-theme="business">
 
             <section className="" >
-                <Parallax blur={2} bgImage="https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg" bgImageAlt="the cat" strength={200}>
+                <Parallax blur={5} bgImage="https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg" bgImageAlt="the cat" strength={200}>
                     <div className=" flex flex-col lg:flex-row items-center justify-around mt-20" >
 
                         <div className="max-w-md p-10 ml-24">
@@ -98,9 +98,9 @@ const Home = () => {
                                     <div className="modal" role="dialog">
                                         <div className="modal-box bg-white">
                                             {
-                                                result.map((item, index) => <div key={index}>
-                                                    <h3 className="text-lg font-bold text-black">{item.type}</h3>
-                                                    <h3 className="text-lg font-bold text-black">{item.status}</h3>
+                                                result.map((item, index) => <div key={index} className="flex justify-between">
+                                                    <h3 className="text-lg font-bold text-black">Parcel Type: {item.type}</h3>
+                                                    <h3 className="text-lg font-bold text-black">Current Status: {item.status}</h3>
                                                 </div>)
                                             }
 
@@ -248,16 +248,28 @@ const Home = () => {
                 <iframe src="https://lottie.host/embed/e3c679e1-0f82-448e-a957-babc0393a16c/ttCrwahYdC.json"></iframe>
             </section>
 
-            <section className="bg-gradient-to-b from-emerald-200 to-emerald-500 text-white py-20">
-                <div className="container mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-1">Experience the Future of Parcel Management</h2>
-                    <p className="text-lg mb-8 px-16">
-                        Our advanced parcel management system is designed to provide you with a seamless experience. Enjoy a combination of cutting-edge technology and user-friendly design.
-                    </p>
-                    <button className="bg-yellow-400 text-blue-900 py-2 px-6 rounded-full text-lg font-bold hover:bg-yellow-500 transition duration-300">
-                        Get Started
-                    </button>
+            <section className="bg-gradient-to-b  text-white py-20">
+                <div className="relative w-full h-0 pb-[56.25%]">
+                    <iframe
+                        allow="fullscreen;autoplay"
+                        allowFullScreen
+                        height="100%"
+                        src="https://streamable.com/e/ypngtl?autoplay=1&nocontrols=1"
+                        width="100%"
+                        className="border-none w-full h-full absolute top-0 left-0 overflow-hidden"
+                    />
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-20">
+                        <h2 className="text-4xl font-bold mb-1 h2">Experience the Future of Parcel Management</h2>
+                        <p className="text-lg mb-8 px-16">
+                            Our advanced parcel management system is designed to provide you with a seamless experience. Enjoy a combination of cutting-edge technology and user-friendly design.
+                        </p>
+                        <button className="bg-yellow-400 text-blue-900 py-2 px-6 rounded-full text-lg font-bold hover:bg-yellow-500 transition duration-300">
+                            Get Started
+                        </button>
+                    </div>
                 </div>
+
+
             </section>
             <section className="py-16">
                 <div className="container mx-auto">
