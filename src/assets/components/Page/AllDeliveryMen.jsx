@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const AllDeliveryMen = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:5000/users')
+    fetch('https://parcel-management-server-steel.vercel.app/users')
       .then(res => res.json())
       .then(data => setUsers(data))
   }, [users])
@@ -30,7 +30,7 @@ const AllDeliveryMen = () => {
   };
   const [allOrder, setAllOrder] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:5000/order')
+    fetch('https://parcel-management-server-steel.vercel.app/order')
       .then(res => res.json())
       .then(data => setAllOrder(data));
   }, [])

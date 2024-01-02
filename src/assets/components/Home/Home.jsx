@@ -27,17 +27,21 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Rating } from "@smastrom/react-rating";
 import '@smastrom/react-rating/style.css'
 import { AuthContext } from "../../../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+AOS.init();
 const Home = () => {
     const [users, setUsers] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://parcel-management-server-steel.vercel.app/users')
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [users]);
     //console.log(users)
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/order')
+        fetch('https://parcel-management-server-steel.vercel.app/order')
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
@@ -71,14 +75,18 @@ const Home = () => {
         setResult(filtered);
     };
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const click = () => {
+        navigate("/login")
+    }
     return (
-        <div data-theme="business">
+        <div data-theme="synthwave">
 
             <section className="" >
                 <Parallax blur={5} bgImage="https://i.ibb.co/SQdfwwG/pngtree-big-isolated-vehicle-vector-colorful-icons-flat-illustrations-of-delivery-by-image-1070281.jpg" bgImageAlt="the cat" strength={200}>
                     <div className=" flex flex-col lg:flex-row items-center justify-around mt-20" >
 
-                        <div className="max-w-md p-10 ml-24">
+                        <div className="max-w-md lg:ml-24">
                             <h1 className="text-4xl font-extrabold mb-4 text-center h">Efficient Parcel Management</h1>
                             <p className="text-lg font-semibold mb-6 text-center text-black">Track, manage, and deliver with ease.</p>
                             <div className="flex justify-center">
@@ -92,7 +100,7 @@ const Home = () => {
                                         className="py-2 px-4 rounded-full w-64 bg-white text-black md:w-96 focus:outline-none border"
                                     />
                                     {
-                                        searched && user && <label onClick={handleSearchClick} htmlFor="my_modal_7" className="absolute right-0 top-0 flex justify-center h-full px-4 py-2 bg-blue-500 rounded-r-full focus:outline-none"><FaSearch /></label>
+                                        searched && user && <label onClick={handleSearchClick} htmlFor="my_modal_7" className="absolute right-0 top-0 flex items-center justify-center h-full px-4 py-2 bg-blue-500 rounded-r-full focus:outline-none"><FaSearch /></label>
                                     }
                                     <input type="checkbox" id="my_modal_7" className="modal-toggle" />
                                     <div className="modal" role="dialog">
@@ -112,7 +120,7 @@ const Home = () => {
                             </div>
                         </div>
 
-                        <div className="p-32">
+                        <div className="p-20">
                             <Lottie animationData={search}></Lottie>
                         </div>
                     </div>
@@ -259,11 +267,11 @@ const Home = () => {
                         className="border-none w-full h-full absolute top-0 left-0 overflow-hidden"
                     />
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-20">
-                        <h2 className="text-4xl font-bold mb-1 h2">Experience the Future of Parcel Management</h2>
-                        <p className="text-lg mb-8 px-16">
+                        <h2 className="lg:text-4xl lg:font-bold mb-1 lg:h2">Experience the Future of Parcel Management</h2>
+                        <p className="lg:text-lg lg:mb-8 lg:px-16">
                             Our advanced parcel management system is designed to provide you with a seamless experience. Enjoy a combination of cutting-edge technology and user-friendly design.
                         </p>
-                        <button className="bg-yellow-400 text-blue-900 py-2 px-6 rounded-full text-lg font-bold hover:bg-yellow-500 transition duration-300">
+                        <button onClick={click} className="bg-yellow-400 text-blue-900 py-2 px-6 rounded-full text-lg font-bold hover:bg-yellow-500 transition duration-300">
                             Get Started
                         </button>
                     </div>
@@ -272,12 +280,12 @@ const Home = () => {
 
             </section>
             <section className="py-16">
-                <div className="container mx-auto">
+                <div className="container mx-auto  ">
                     <h2 className="text-4xl font-bold mb-8 text-center text-white">Choose Your Parcel Management Plan</h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-10 space-y-5 lg:space-x-5">
 
-                        <div className="bg-white p-8 rounded-md shadow-md">
+                        <div data-aos="flip-left" className="bg-white p-8 rounded-md shadow-md">
                             <h3 className="text-xl font-bold mb-4 text-gray-800">Basic Plan</h3>
                             <p className="text-gray-600 mb-4">
                                 Ideal for occasional senders. Enjoy essential parcel tracking features with this cost-effective plan.
@@ -290,7 +298,7 @@ const Home = () => {
                             <p className="text-gray-800 font-bold mt-4">$9.99/month</p>
                         </div>
 
-                        <div className="bg-white p-8 rounded-md shadow-md">
+                        <div data-aos="flip-left" className="bg-white p-8 rounded-md shadow-md">
                             <h3 className="text-xl font-bold mb-4 text-gray-800">Premium Plan</h3>
                             <p className="text-gray-600 mb-4">
                                 For regular users who want additional features. Unlock express delivery options and more with the Premium Plan.
@@ -304,7 +312,7 @@ const Home = () => {
                             <p className="text-gray-800 font-bold mt-4">$19.99/month</p>
                         </div>
 
-                        <div className="bg-white p-8 rounded-md shadow-md">
+                        <div data-aos="flip-left" className="bg-white p-8 rounded-md shadow-md">
                             <h3 className="text-xl font-bold mb-4 text-gray-800">Business Plan</h3>
                             <p className="text-gray-600 mb-4">
                                 Tailored for businesses with high parcel volumes. Get advanced tracking, priority support, and more.
@@ -380,7 +388,7 @@ const Home = () => {
                         >
                             {delivery.map((deliveryMan, index) => (
                                 <SwiperSlide key={index} className="bg-white p-6 rounded-md h-28 shadow-md ">
-                                    <div className="h-56 flex items-center space-x-40">
+                                    <div className="h-56 flex items-center space-x-10 lg:space-x-40">
                                         <img
                                             src={deliveryMan.photoURL}
 

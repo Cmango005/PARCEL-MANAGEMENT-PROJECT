@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AllParcel = () => {
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/order')
+        fetch('https://parcel-management-server-steel.vercel.app/order')
             .then(res => res.json())
             .then(data => {
                 const sortedData = data.sort((a, b) => {
@@ -18,7 +18,7 @@ const AllParcel = () => {
     }, [allOrder])
     const [users, setUsers] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://parcel-management-server-steel.vercel.app/users')
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [users])
@@ -44,7 +44,7 @@ const AllParcel = () => {
     const handleAssignDelivery = async (id) => {
 
         setIsAssigned(true);
-        fetch(`http://localhost:5000/order/${id}`, {
+        fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

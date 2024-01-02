@@ -14,7 +14,7 @@ const Statistics = () => {
     const [allOrder, setAllOrder] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/order")
+        fetch("https://parcel-management-server-steel.vercel.app/order")
             .then((res) => res.json())
             .then((data) => setAllOrder(data));
     }, [allOrder]);

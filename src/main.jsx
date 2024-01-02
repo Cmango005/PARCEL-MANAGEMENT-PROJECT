@@ -102,12 +102,12 @@ const router = createBrowserRouter([
       {
         path:'/dashboard/update/:id',
         element:<PrivateRoute><Update></Update></PrivateRoute>,
-        loader:({params})=> fetch(`http://localhost:5000/order/${params.id}`)
+        loader:({params})=> fetch(`https://parcel-management-server-steel.vercel.app/order/${params.id}`)
       },
       {
         path:'/dashboard/payment/:id',
         element:<PrivateRoute><Payment></Payment></PrivateRoute>,
-        loader:({params})=> fetch(`http://localhost:5000/order/${params.id}`)
+        loader:({params})=> fetch(`https://parcel-management-server-steel.vercel.app/order/${params.id}`)
       }
     ]
   }

@@ -9,9 +9,9 @@ const useDeliveryMan = () => {
     queryKey: [user?.email, 'isDeliveryMen'],
     queryFn: async () => {
       try {
-        const res = await fetch(`http://localhost:5000/users/delivery-man/${user?.email}`);
+        const res = await fetch(`https://parcel-management-server-steel.vercel.app/users/delivery-man/${user?.email}`);
         if (!res.ok) {
-          throw new Error(`Error fetching data from http://localhost:5000/users/delivery-man/${user?.email}`);
+          throw new Error(`Error fetching data from https://parcel-management-server-steel.vercel.app/users/delivery-man/${user?.email}`);
         }
 
         const data = await res.json();

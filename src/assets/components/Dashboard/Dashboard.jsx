@@ -44,24 +44,24 @@ const Dashboard = () => {
                             <button onClick={() => setOpen(false)} className='w-8 h-8 mr-0 absolute z-20 right-1 '><IoCloseSharp className='h-full w-full hover:w-7 text-slate-100 '></IoCloseSharp></button>
                         </div>
                         <div>
-                            <div className="flex justify-center py-2 space-x-1 ">
+                            <div className="flex justify-center ">
                                 {/* <img className="h-10 w-14 shadow-2xl rounded-md" src="https://i.ibb.co/rHWB3R4/istockphoto-1195743934-612x612.jpg" alt="" /> */}
-                                <p className="text-xl font-bold mt-2"><span className="text-black">Panda</span><span className="text-white">Parcel</span></p>
-
+                                {/* <p className="bg-pink-400 font-semibold text-xl text-white p-3"><span className="text-black">Panda</span>Parcel</p> */}
+                                {user&&<iframe src="https://lottie.host/embed/e93285bb-8b33-4f13-ad0b-2cb747e40ef9/P8hFqAn3NO.json"></iframe>}
                             </div>
-                            <hr className="mt-1 to-black" />
+                            
                             <ul className="menu p-5 space-y-5 text-base text-black ">
                                 {isAdmin && <p className="text-2xl font-bold text-center">ADMIN</p>}
                                 {isDeliveryMen && <p className="text-2xl font-bold text-center">DELIVERYMAN</p>}
-                                {!isAdmin && !isDeliveryMen && <p className="text-2xl font-bold text-center">USER</p>}
+                                {!isAdmin && !isDeliveryMen && user&& <p className="text-2xl font-bold text-center">USER</p>}
 
-                                <div className="space-x-3 flex flex-col justify-center items-center">
-                                <img src={user?.photoURL} className="w-32 h-32 rounded-full mx-auto" alt="" />
-                                    <iframe src="https://lottie.host/embed/65591004-7a06-4cbe-a02b-22ebf6d7e43a/xqFjmy78YR.json" className="h-10 w-44"></iframe>
-                                 
-                                       
-                                        <p className="mx-auto text-md font-bold"> {user?.displayName}</p>
-                                    
+                                <div className=" flex flex-col justify-center items-center">
+                                    {user && <img src={user?.photoURL} className="w-32 h-32 rounded-sm mx-auto" alt="" />}
+                                    {/* <iframe src="https://lottie.host/embed/65591004-7a06-4cbe-a02b-22ebf6d7e43a/xqFjmy78YR.json" className="h-10 w-44"></iframe> */}
+
+
+                                    {user && <p className="mx-auto text-lg font-bold"> {user?.displayName}</p>}
+
                                 </div>
 
                                 {/* <li className="flex hover:bg-gray-700 hover:text-white hover:rounded-lg">
@@ -131,7 +131,7 @@ const Dashboard = () => {
 
 
                 <div className='mt-10 w-full md:mt-0 lg:mt-0' data-theme="synthwave">
-                    
+
                     <Outlet></Outlet>
 
                 </div>

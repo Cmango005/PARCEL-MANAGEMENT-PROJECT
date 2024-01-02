@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { useContext } from "react";
 import { updateProfile } from "firebase/auth";
@@ -11,6 +11,7 @@ const Registration = () => {
     
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser } = useContext(AuthContext);
+    const navigate = useNavigate();
     const onSubmit = data => {
         createUser(data.email, data.password, data.name, data.photoURL, data.phoneNumber)
             .then(result => {
@@ -21,7 +22,7 @@ const Registration = () => {
                     phone: data?.phoneNumber
                 }
                 
-                fetch('http://localhost:5000/users',{
+                fetch('https://parcel-management-server-steel.vercel.app/users',{
                     method: 'POST',
                     headers: {
                       'content-type': 'application/json'
@@ -31,6 +32,7 @@ const Registration = () => {
                 .then(res => res.json())
                 .then(data => {
                     if(data.insertedId){
+                        navigate("/dashboard")
                         toast.success('user added successfully')
                     }
                 })
@@ -47,7 +49,7 @@ const Registration = () => {
     }
     return (
         <div className="hero min-h-screen mt-28 bg-base-200">
-            <div className="hero-content flex-col lg:flex-row space-x-60">
+            <div className="hero-content flex-col lg:flex-row lg:space-x-60">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Sign up now!</h1>
                     <iframe src="https://lottie.host/embed/ba766bed-f707-45f5-9f95-55c02ec2a583/7NYsHptgLu.json" className="h-96"></iframe>

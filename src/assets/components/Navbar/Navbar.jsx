@@ -25,7 +25,7 @@ const Navbar = () => {
     }
     const [myOrder, setMyOrder] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/order')
+        fetch('https://parcel-management-server-steel.vercel.app/order')
             .then(res => res.json())
             .then(data => { const sortedData = data.sort((a, b) => {
                 const statusOrder = ["delivered", "pending", "on the way", "paid"];
@@ -37,10 +37,11 @@ const Navbar = () => {
     const my = myOrder.filter(item => item.email === user?.email)
 
     return (
-        <div className="space-x-20 flex md:space-x-60 lg:space-x-60 back z-10 p-5 top-0 fixed mx-auto container justify-between shadow-2xl bg-transparent backdrop-blur">
-            <div className="flex space-x-5">
+        <div className="space-x-20 flex md:space-x-60 lg:space-x-60 back z-10 p-3 top-0 fixed mx-auto container items-center justify-between shadow-2xl bg-transparent backdrop-blur">
+            {/* <div className="flex space-x-5">
                 <img src="https://i.ibb.co/GFB9Lcr/Black-and-White-Monogram-Business-Logo-1.gif" alt="" className="h-16 w-32" />
-            </div>
+            </div> */}
+            <p className="bg-pink-400 font-semibold text-xl text-white p-3"><span className="text-black">Panda</span>Parcel</p>
             <div className="flex space-x-10 items-center">
                 <div>
                     <nav className="hidden lg:flex lg:space-x-5 lg:gap-6 ">
@@ -52,7 +53,7 @@ const Navbar = () => {
                                     <span className="indicator-item badge badge-secondary bg-pink-500 text-white">{my.length}</span>
                                     <IoIosNotifications onClick={toggleDropdown2}
                                         type="button"
-                                        className="inline-flex items-center justify-center w-10 h-10 text-gray-700 border border-gray-300 rounded-full focus:outline-none"
+                                        className="inline-flex items-center justify-center w-8 h-8 text-blue-500 border border-gray-300 rounded-full focus:outline-none"
                                         id="dropdown-menu-button"
                                         aria-expanded={isOpened ? 'true' : 'false'} />
                                     {isOpened && (

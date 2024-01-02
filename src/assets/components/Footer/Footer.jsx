@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="flex flex-col lg:flex-row justify-around  items-start">
                 <div className="lg:text-left lg:mr-12">
                     <div className="flex ">
-                        <img src="https://i.ibb.co/GFB9Lcr/Black-and-White-Monogram-Business-Logo-1.gif" alt="" className="h-16 w-32" />
+                    <p className="bg-pink-400 font-semibold text-xl text-white p-3"><span className="text-black">Panda</span>Parcel</p>
 
                     </div>
                     <p className="flex items-center gap-1"><MdOutlineMail /> pandaparcel@gmail.com</p>

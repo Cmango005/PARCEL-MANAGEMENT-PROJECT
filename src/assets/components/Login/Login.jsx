@@ -28,7 +28,7 @@ const Login = () => {
                 console.log(result.user)
 
                 toast.success('Login successful')
-                navigate(location?.state ? location.state : "/")
+                navigate(location?.state ? location.state : "/dashboard")
             })
             .catch(error => {
                 console.log(error)
@@ -48,7 +48,7 @@ const Login = () => {
                     name: Result.user.displayName,
                     email: Result.user.email
                 }
-                fetch('http://localhost:5000/users', {
+                fetch('https://parcel-management-server-steel.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -65,7 +65,7 @@ const Login = () => {
                     })
 
 
-                navigate(location?.state ? location.state : "/")
+                navigate(location?.state ? location.state : "/dashboard")
 
             })
 
@@ -78,12 +78,13 @@ const Login = () => {
             <section className="hero bg-base-200 " >
 
 
-                <div className="flex items-center justify-between  space-x-28 p-5 mt-14">
+                <div className="flex flex-col-reverse lg:flex-row items-center justify-between space-y-14 lg:space-x-28 p-5 mt-14">
 
 
 
-                    <div className="flex flex-col items-center justify-center login-form  w-3/5 p-5  inset-0 h-screen border bg-transparent backdrop-blur shadow-2xl">
+                    <div className="flex flex-col items-center justify-center login-form  w-3/5 p-5  inset-0  border bg-transparent backdrop-blur shadow-2xl">
                         <p className="text-center text-xl font-bold ">Welcome To PandaParcel</p>
+                        <div className="h-96">
                         <form onSubmit={handleLogin} >
                             <div className="mb-4">
                                 <input
@@ -126,6 +127,7 @@ const Login = () => {
                                 GOOGLE <FcGoogle />
                             </button>
                             <ToastContainer></ToastContainer>
+                        </div>
                         </div>
 
 

@@ -16,14 +16,14 @@ const Checkout = ({ parcel }) => {
     const [clientSecret, setClientSecret] = useState("");
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/order')
+        fetch('https://parcel-management-server-steel.vercel.app/order')
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
         if (parcel && parcel.price) {
-            fetch("http://localhost:5000/create-payment-intent", {
+            fetch("https://parcel-management-server-steel.vercel.app/create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ price: parseInt(parcel.price) }),
@@ -70,7 +70,7 @@ const Checkout = ({ parcel }) => {
                 console.log(parcel._id);
                 const deliveryMan = parcel.deliveryMan;
                 const deliveryDate = parcel.deliveryDate;
-                fetch(`http://localhost:5000/order/${parcel._id}`, {
+                fetch(`https://parcel-management-server-steel.vercel.app/order/${parcel._id}`, {
                     method: 'PATCH',
                     headers: {
                         'content-type': 'application/json'

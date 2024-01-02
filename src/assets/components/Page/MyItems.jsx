@@ -31,7 +31,7 @@ const MyItems = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`http://localhost:5000/order?email=${user?.email}`)
+        fetch(`https://parcel-management-server-steel.vercel.app/order?email=${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 const sortedData = data.sort((a, b) => {
@@ -46,7 +46,7 @@ const MyItems = () => {
 
     const [allOrder, setAllOrder] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/order')
+        fetch('https://parcel-management-server-steel.vercel.app/order')
             .then(res => res.json())
             .then(data => setAllOrder(data))
     }, [allOrder])
@@ -61,7 +61,7 @@ const MyItems = () => {
     const [isReviewDone, setIsReviewDone] = useState(false);
     const handleReviewSubmit = async (id, review, deliveryMan, deliveryDate, photo ,rate) => {
         setIsReviewDone(true);
-        fetch(`http://localhost:5000/order/${id}`, {
+        fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -95,7 +95,7 @@ const MyItems = () => {
     //const [isPaid, setIsPaid] = useState("");
 
     // const handlePaySubmit = async(id)=>{
-    //     fetch(`http://localhost:5000/order/${id}`, {
+    //     fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
     //         method: 'PATCH',
     //         headers: {
     //             'content-type': 'application/json'
@@ -104,7 +104,7 @@ const MyItems = () => {
     //     })
     // }
     const handleCancel = (id) => {
-        fetch(`http://localhost:5000/order/${id}`, {
+        fetch(`https://parcel-management-server-steel.vercel.app/order/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
