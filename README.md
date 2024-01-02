@@ -44,5 +44,5 @@ Add some animation for easy to use.
 
 *Ensuring the website is accessible and user-friendly across various devices (desktop, tablet, mobile).
 
-Live Link : https://panda-parcel-88.netlify.app/
+Live Link : https://panda-parcel.netlify.app/
 Server Link : https://parcel-management-server-steel.vercel.app/
